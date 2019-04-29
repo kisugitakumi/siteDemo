@@ -1,0 +1,20 @@
+@charset 'utf-8';
+#list{
+	width: 600px;
+	height: 514px;
+	border: 2px solid #ccc;
+	float: right;
+}
+#user{
+	width: 340px;
+	height: 250px;
+	border: 2px solid #ccc;
+	float: left;
+	margin: 0 0 10px 0;/*上右下左间隙*/
+}
+#pics{
+	width: 340px;
+	height: 250px;
+	border: 2px solid #ccc;
+	float: left;
+}
