@@ -9,7 +9,7 @@ if(!defined('IN_TG')){//防止恶意调用
 	<dl>
 		<dt>账号管理</dt>
 		<dd><a href='member.php'>个人信息</a></dd>
-		<dd><a href="###">修改资料</a></dd>
+		<dd><a href='member_modify.php'>修改资料</a></dd>
 	</dl>
 	<dl>
 		<dt>其他管理</dt>
