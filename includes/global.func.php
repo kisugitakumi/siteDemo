@@ -89,6 +89,23 @@ function _login_state(){
 }
 
 /**
+ * 防止非法字符，对其转义处理，如果是数组，也可过滤
+ * @param  [type] $_string [description]
+ * @return [type]          [description]
+ */
+function _html($_string){
+	if(is_array($_string)){
+		foreach ($_string as $_key => $_value) {
+			//递归循环
+			$_string[$_key]=_html($_value);
+		}
+	}else{
+		$_string=htmlspecialchars($_string);
+	}
+	return $_string;
+}
+
+/**
  * 设置分页参数
  * @param  [type] $_sql  获取总用户数
  * @param  [type] $_size 指定每页的用户数量

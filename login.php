@@ -23,7 +23,7 @@ if ($_GET['action']=='login') {
 		_close();
 		_session_destroy();
 		_setcookies($_rows['tg_username'],$_rows['tg_uniqid'],$_clean['time']);
-		_location(null,'index.php');
+		_location(null,'member.php');
 	}else{
 		_close();
 		_session_destroy();

@@ -81,6 +81,15 @@ function _affected_rows(){
 }
 
 /**
+ * 销毁记录集
+ * @param  [type] $_rsult [description]
+ * @return [type]         [description]
+ */
+function _free_result($_rsult){
+	mysql_free_result($_result);
+}
+
+/**
  * 是否存在数据
  * @param  [type]  $_sql  [description]
  * @param  [type]  $_info [description]
