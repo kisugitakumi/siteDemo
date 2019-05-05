@@ -89,6 +89,19 @@ function _login_state(){
 }
 
 /**
+ * 判断唯一标识符是否异常
+ * @param  [type] $_mysql_uniqid  [description]
+ * @param  [type] $_cookie_uniqid [description]
+ * @return [type]                 [description]
+ */
+function _uniqid($_mysql_uniqid,$_cookie_uniqid){
+	if ($_mysql_uniqid!=$_cookie_uniqid) {
+			_alert_back('唯一标识符异常');
+		}
+}
+
+
+/**
  * 防止非法字符，对其转义处理，如果是数组，也可过滤
  * @param  [type] $_string [description]
  * @return [type]          [description]

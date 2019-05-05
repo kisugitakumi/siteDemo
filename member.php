@@ -6,7 +6,7 @@ require dirname(__FILE__).'/includes/common.inc.php';
 //是否正常登陆
 if(isset($_COOKIE['username'])){
 	//获取数据
-	$_rows=_fetch_array("SELECT tg_username,tg_sex,tg_face,tg_email,tg_url,tg_qq,tg_level,tg_reg_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}'");
+	$_rows=_fetch_array("SELECT tg_username,tg_sex,tg_face,tg_email,tg_url,tg_qq,tg_level,tg_reg_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1;");
 	if($_rows){
 		$_html=array();
 		$_html['username']=$_rows['tg_username'];

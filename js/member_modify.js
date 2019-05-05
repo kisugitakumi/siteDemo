@@ -44,5 +44,6 @@ window.onload=function(){
 			fm.code.focus();
 			return false;
 		}
+		return true;
 	}
 };

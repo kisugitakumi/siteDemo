@@ -10,9 +10,9 @@ if($_GET['action']=='modify'){
 	_check_code($_POST['code'],$_SESSION['code']);
 	//首先判断数据库中是否有这个用户存在
 	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
-	if (!!$_row=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
-		//6分34秒
-		//引入验证文件
+	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+		//引入验证文
 		include ROOT_PATH.'includes/register.func.php';
 		//创建一个空数组，用来存放用户提交的合法数据
 		$_clean=array();
