@@ -81,6 +81,25 @@ function _check_password($_first_pass,$_end_pass,$_min_num){
 	return _mysql_string(sha1($_first_pass));
 }
 
+
+/**
+ * 用于修改密码后的密码检查
+ * @param  [type] $_string  [description]
+ * @param  [type] $_min_num [description]
+ * @return [type]           [description]
+ */
+function _check_modify_password($_string,$_min_num){
+	//判断密码
+	if(!empty($_string)){
+		if(strlen($_string)<$_min_num){
+			_alert_back('密码长度不得小于'.$_min_num.'位！');
+		}
+	}else{
+		return null;
+	}
+	return sha1($_string);
+}
+
 /**
  * 密码提示验证
  * @param  [string] $_string

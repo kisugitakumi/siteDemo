@@ -6,7 +6,60 @@ define('SCRIPT', 'member_modify');
 require dirname(__FILE__).'/includes/common.inc.php';
 //修改资料
 if($_GET['action']=='modify'){
-	echo "修改";
+	//防止恶意注册和跨站攻击
+	_check_code($_POST['code'],$_SESSION['code']);
+	//首先判断数据库中是否有这个用户存在
+	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
+	if (!!$_row=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+		//6分34秒
+		//引入验证文件
+		include ROOT_PATH.'includes/register.func.php';
+		//创建一个空数组，用来存放用户提交的合法数据
+		$_clean=array();
+		$_clean['password']=_check_modify_password($_POST['password'],6);
+		$_clean['sex']=_check_sex($_POST['sex']);
+		$_clean['face']=_check_face($_POST['face']);
+		$_clean['email']=_check_email($_POST['email'],6,40);
+		$_clean['qq']=_check_qq($_POST['qq']);
+		$_clean['url']=_check_url($_POST['url'],40);
+		
+		//修改资料
+		if (empty($_clean['password'])) {
+			_query("UPDATE tg_user SET 
+										tg_sex='{$_clean['sex']}',
+										tg_face='{$_clean['face']}',
+										tg_email='{$_clean['email']}',
+										tg_url='{$_clean['url']}',
+										tg_qq='{$_clean['qq']}'
+									WHERE
+										tg_username='{$_COOKIE['username']}';
+				");
+		}else{
+			_query("UPDATE tg_user SET 
+										tg_password='{$_clean['password']}',
+										tg_sex='{$_clean['sex']}',
+										tg_face='{$_clean['face']}',
+										tg_email='{$_clean['email']}',
+										tg_url='{$_clean['url']}',
+										tg_qq='{$_clean['qq']}'
+									WHERE
+										tg_username='{$_COOKIE['username']}';
+				");
+		}
+	}
+	//判断是否修改成功
+	if (_affected_rows()==1) {
+		//关闭连接和session
+		_close();
+		_session_destroy();
+		//成功注册则跳转至首页
+		_location('修改成功！','member.php');
+	}else{
+		_close();
+		_session_destroy();
+		_location('没有任何数据被修改！','member_modify.php');
+	}
+
 }
 //是否正常登陆
 if(isset($_COOKIE['username'])){
@@ -61,6 +114,7 @@ if(isset($_COOKIE['username'])){
 		<form method="post" action="?action=modify">
 		<dl>
 			<dd>用户名：<?php echo $_html['username']?></dd>
+			<dd>密  码：<input type="password" class="text" name="password">(留空则不修改)</dd>
 			<dd>性  别：<?php echo $_html['sex_html']?></dd>
 			<dd>头  像：<?php echo $_html['face_html']?></dd>
 			<dd>电子邮件：<input type="text" class="text" name="email" value="<?php echo $_html['email']?>"></dd>
