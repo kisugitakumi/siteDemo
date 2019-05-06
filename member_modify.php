@@ -12,8 +12,8 @@ if($_GET['action']=='modify'){
 	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
 	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
-		//引入验证文
-		include ROOT_PATH.'includes/register.func.php';
+		//引入验证文件
+		include ROOT_PATH.'includes/check.func.php';
 		//创建一个空数组，用来存放用户提交的合法数据
 		$_clean=array();
 		$_clean['password']=_check_modify_password($_POST['password'],6);

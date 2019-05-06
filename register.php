@@ -12,7 +12,7 @@ if ($_GET['action']=='register') {
 	//防止恶意注册和跨站攻击
 	_check_code($_POST['code'],$_SESSION['code']);
 	//引入验证文件
-	include ROOT_PATH.'includes/register.func.php';
+	include ROOT_PATH.'includes/check.func.php';
 	//创建一个空数组，用来存放用户提交的合法数据
 	$_clean=array();
 	//可以通过唯一标识符来防止恶意注册，即是伪装表单跨站攻击

@@ -21,6 +21,18 @@ function _alert_back($_info){
 }
 
 /**
+ * js关闭窗口
+ * @param  [type] $_info [description]
+ * @return [type]        [description]
+ */
+function _alert_close($_info){
+	echo "<script type='text/javascript'>alert('".$_info."');window.close();</script>";
+	exit();
+}
+
+
+
+/**
  * 注册后跳转至某个页面
  * @param  [type] $_info [description]
  * @param  [type] $_url  [description]
@@ -43,18 +55,6 @@ function _sha1_uniqid(){
 	return _mysql_string(sha1(uniqid(rand(),true)));
 }
 
-/**
- * 判断是否需要开启转义
- * @param  [type] $_string [description]
- * @return [type]          [description]
- */
-function _mysql_string($_string){
-	//如果是开启状态，则不需要转义，否则需要转义
-	if(!GPC){
-		return mysql_escape_string($_string);
-	}
-	return $_string;
-}
 
 /**
  * 验证码验证函数
@@ -114,6 +114,27 @@ function _html($_string){
 		}
 	}else{
 		$_string=htmlspecialchars($_string);
+	}
+	return $_string;
+}
+
+
+/**
+ * 判断是否需要开启转义，对字符串数组和字符串
+ * @param  [type] $_string [description]
+ * @return [type]          [description]
+ */
+function _mysql_string($_string){
+	//如果是开启状态，则不需要转义，否则需要转义
+	if(!GPC){
+		if(is_array($_string)){
+			foreach ($_string as $_key => $_value) {
+				//递归循环
+				$_string[$_key]=_mysql_string($_value);
+			}
+		}else{
+			$_string=mysql_escape_string($_string);
+		}
 	}
 	return $_string;
 }

@@ -212,4 +212,18 @@ function _check_url($_string,$_max_num){
 	return _mysql_string($_string);
 }
 
+/**
+ * 短信内容长度检查
+ * @param  [type] $_string [description]
+ * @return [type]          [description]
+ */
+function _check_content($_string){
+	//长度小于10位或者大于200位 不予通过
+	if(mb_strlen($_string,'utf-8')<10 || mb_strlen($_string,'utf-8')>200){
+		_alert_back('短信不得小于10位或大于200位');
+	}else{
+		return $_string;
+	}
+}
+
 ?>

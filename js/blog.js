@@ -3,7 +3,7 @@ window.onload=function(){
 	for (var i=0;i<message.length;i++){
 		message[i].onclick=function(){
 			//打卡发送短信界面
-			centerWindow('message.php?id='+this.title,'message',250,400);
+			centerWindow('message.php?id='+this.title,'message',300,500);
 		}
 	}
 };
