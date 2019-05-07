@@ -26,6 +26,7 @@ if(isset($_COOKIE['username'])){
 			default:
 				$_html['level']='出错';
 		}
+		//信息过滤
 		$_html=_html($_html);
 	}else{
 		_alert_back('此用户不存在');

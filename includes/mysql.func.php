@@ -85,7 +85,7 @@ function _affected_rows(){
  * @param  [type] $_rsult [description]
  * @return [type]         [description]
  */
-function _free_result($_rsult){
+function _free_result($_result){
 	mysql_free_result($_result);
 }
 

@@ -13,7 +13,7 @@ if(!defined('IN_TG')){//防止恶意调用
 	</dl>
 	<dl>
 		<dt>其他管理</dt>
-		<dd><a href="###">短信查阅</a></dd>
+		<dd><a href="member_message.php">短信查阅</a></dd>
 		<dd><a href="###">好友设置</a></dd>
 		<dd><a href="###">查询花朵</a></dd>
 		<dd><a href="###">个人相册</a></dd>
