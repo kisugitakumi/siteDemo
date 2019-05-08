@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
 	<form method="post" action="?action=write">
 	<input type="hidden" name="touser" value="<?php echo $_html['touser']?>">
 	<dl>
-		<dd>TO<input type="text" value="<?php echo $_html['touser']?>" class="text"></dd>
+		<dd><input type="text" readonly="readonly" value="亲爱的<?php echo $_html['touser']?>：" class="text"></dd>
 		<dd><textarea name="content"></textarea></dd>
 		<dd>验 &nbsp;证 码：<input type="text" name="code" class="text yzm"><img src="code.php" id="code"><input type="submit" class="submit" value="发送短信"></dd>
 	</dl>

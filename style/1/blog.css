@@ -29,6 +29,10 @@
 	width: 75px;
 	float: left;
 }
+#blog dl dd a{
+	text-decoration: none;
+	color: #333;
+}
 #blog dl dd.user{
 	width: 150px;
 	float: none;
