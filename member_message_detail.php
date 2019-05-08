@@ -32,10 +32,20 @@ if ($_GET['action']=='delete' && isset($_GET['id'])) {
 		_alert_back('此短信不存在');
 	}
 }
-
+//处理id
 if (isset($_GET['id'])) {
-	$_rows=_fetch_array("SELECT tg_id,tg_fromuser,tg_content,tg_date FROM tg_message WHERE tg_id='{$_GET['id']}' LIMIT 1;");
+	$_rows=_fetch_array("SELECT tg_id,tg_state,tg_fromuser,tg_content,tg_date FROM tg_message WHERE tg_id='{$_GET['id']}' LIMIT 1;");
 	if($_rows){
+		//将state设置为1
+		//如果已读则不操作
+		if ($_rows['tg_state']==1) {
+			
+		}else{//否则未读，将state设置为1
+			_query("UPDATE tg_message SET tg_state=1 WHERE tg_id='{$_GET['id']}' LIMIT 1;");
+			if (!_affected_rows()) {
+				_alert_back('异常！');
+			}
+		}
 		$_html=array();
 		$_html['id']=$_rows['tg_id'];
 		$_html['fromuser']=$_rows['tg_fromuser'];
