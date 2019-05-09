@@ -11,6 +11,54 @@
 	border: 2px solid #ccc;
 	float: left;
 	margin: 0 0 10px 0;/*上右下左间隙*/
+	font-size: 12px;
+}
+#user dl{
+	width: 170px;
+	margin: 0 auto;
+	padding: 10px 0 0 0;
+}
+#user dl dt{
+	width: 170px;
+	margin: 0 0 5px 0;
+}
+#user dl dt img{
+	margin: 0 auto;
+	display: block;
+}
+#user dl dd{
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	width: 85px;
+	float: left;
+}
+#user dl dd.email,#user dl dd.url{
+	width: 250px;
+	text-align: left;
+	padding: 2px 0 0 0;
+	text-indent: 5px;
+}
+#user dl dd a{
+	text-decoration: none;
+	color: #333;
+}
+#user dl dd.user{
+	width: 170px;
+	float: none;
+	color: #f60;
+}
+#user dl dd.message{
+	background: url(../../images/x1.gif) no-repeat 5px 35%;
+}
+#user dl dd.friend{
+	background: url(../../images/x2.gif) no-repeat left 35%;
+}
+#user dl dd.guest{
+	background: url(../../images/x3.gif) no-repeat 5px 35%;
+}
+#user dl dd.flower{
+	background: url(../../images/x4.gif) no-repeat left 35%;
 }
 #pics{
 	width: 340px;

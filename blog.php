@@ -24,8 +24,8 @@ $_result=_query("SELECT tg_id,tg_username,tg_sex,tg_face FROM tg_user ORDER BY t
 <div id="blog">
 	<h2>博友列表</h2>
 	<?php 
+		$_html=array();
 		while(!!$_rows=_fetch_array_list($_result)){
-			$_html=array();
 			$_html['id']=$_rows['tg_id'];
 			$_html['username']=$_rows['tg_username'];
 			$_html['face']=$_rows['tg_face'];
@@ -34,11 +34,11 @@ $_result=_query("SELECT tg_id,tg_username,tg_sex,tg_face FROM tg_user ORDER BY t
 	?>
 	<dl>
 		<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
-		<dt><img src="<?php echo $_html['face']?>" alt="炎日"></dt>
+		<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
 		<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
 		<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['id']?>">加为好友</a></dd>
 		<dd class="guest">写留言</dd>
-		<dd class="flower">给他送花</dd>
+		<dd class="flower"><a href="javascript:;" name="flower" title="<?php echo $_html['id']?>">给他送花</a></dd>
 	</dl>
 	<?php } 
 		//去除warning提示

@@ -100,6 +100,73 @@ function _uniqid($_mysql_uniqid,$_cookie_uniqid){
 		}
 }
 
+/**
+ * 读取xml文件的函数
+ * @param  [type] $_xmlfile [description]
+ * @return [type]           [description]
+ */
+function _get_xml($_xmlfile){
+	$_html=array();
+	if (file_exists($_xmlfile)) {
+		$_xml=file_get_contents($_xmlfile);	
+		//全局匹配
+		preg_match_all('/<vip>(.*)<\/vip>/s',$_xml,$_dom);
+		foreach ($_dom[1] as $_value) {
+			preg_match_all('/<id>(.*)<\/id>/s', $_value, $_id);
+			preg_match_all('/<username>(.*)<\/username>/s', $_value, $_username);
+			preg_match_all('/<sex>(.*)<\/sex>/s', $_value, $_sex);
+			preg_match_all('/<face>(.*)<\/face>/s', $_value, $_face);
+			preg_match_all('/<email>(.*)<\/email>/s', $_value, $_email);
+			preg_match_all('/<url>(.*)<\/url>/s', $_value, $_url);
+			$_html['id']=$_id[1][0];
+			$_html['username']=$_username[1][0];
+			$_html['sex']=$_sex[1][0];
+			$_html['face']=$_face[1][0];
+			$_html['email']=$_email[1][0];
+			$_html['url']=$_url[1][0];
+		}
+	}else{
+		echo "文件不存在";
+	}
+	return $_html;
+}
+
+
+/**
+ * 用于生成xml文件
+ * @param [type] $_xmlfile [description]
+ * @param [type] $_clean   [description]
+ */
+function _set_xml($_xmlfile,$_clean){
+	$_fp=@fopen('new.xml', 'w');
+	if (!$_fp) {
+		exit('文件不存在');
+	}
+	//防止资源死锁
+	flock($_fp, LOCK_EX);
+
+	$_string="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="<vip>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="\t<id>{$_clean['id']}</id>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="\t<username>{$_clean['username']}</username>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="\t<sex>{$_clean['sex']}</sex>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="\t<face>{$_clean['face']}</face>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="\t<email>{$_clean['email']}</email>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="\t<url>{$_clean['url']}</url>\r\n";
+	fwrite($_fp, $_string,strlen($_string));
+	$_string="</vip>";
+	fwrite($_fp, $_string,strlen($_string));
+
+	flock($_fp, LOCK_UN);
+	fclose($_fp);
+}
 
 /**
  * 短信内容长度截取函数

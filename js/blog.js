@@ -1,6 +1,7 @@
 window.onload=function(){
 	var message=document.getElementsByName('message');
 	var friend=document.getElementsByName('friend');
+	var flower=document.getElementsByName('flower');
 	for (var i=0;i<message.length;i++){
 		message[i].onclick=function(){
 			//打开发送短信界面
@@ -11,6 +12,12 @@ window.onload=function(){
 		friend[i].onclick=function(){
 			//打开添加好友界面
 			centerWindow('friend.php?id='+this.title,'friend',340,500);
+		}
+	};
+	for (var i=0;i<flower.length;i++){
+		flower[i].onclick=function(){
+			//打开添加好友界面
+			centerWindow('flower.php?id='+this.title,'flower',340,500);
 		}
 	};
 };

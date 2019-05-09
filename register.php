@@ -71,9 +71,13 @@ if ($_GET['action']=='register') {
 					);"
 	);
 	if (_affected_rows()==1) {
+		//获取刚刚新增的ID
+		$_clean['id']=_insert_id();
 		//关闭连接和session
 		_close();
 		_session_destroy();
+		//生成XML
+		_set_xml('new.xml',$_clean);
 		//成功注册则跳转至首页
 		_location('注册成功！','active.php?active='.$_clean['active']);
 	}else{

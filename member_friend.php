@@ -71,8 +71,8 @@ $_result=_query("SELECT tg_id,tg_tobro,tg_frombro,tg_content,tg_date,tg_state FR
 		<table cellspacing="1">
 			<tr><th>好友</th><th>验证内容</th><th>时间</th><th>状态</th><th>操作</th></tr>
 			<?php
-				 while(!!$_rows=_fetch_array_list($_result)){
-				 	$_html=array();
+				$_html=array();
+				while(!!$_rows=_fetch_array_list($_result)){
 					$_html['id']=$_rows['tg_id'];
 					//下面这句话有bug，因此在显示发信人的时候，直接使用$_rows数组
 				 	// $_hmtl['frombro']=$_rows['tg_frombro'];

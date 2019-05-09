@@ -90,6 +90,14 @@ function _free_result($_result){
 }
 
 /**
+ * 返回新增的ID
+ * @return [type] [description]
+ */
+function _insert_id(){
+	return mysql_insert_id();
+}
+
+/**
  * 是否存在数据
  * @param  [type]  $_sql  [description]
  * @param  [type]  $_info [description]
