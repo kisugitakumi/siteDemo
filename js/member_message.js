@@ -11,9 +11,9 @@ window.onload=function(){
 		}
 	};
 	fm.onsubmit=function(){
-		if(confirm('确定删除此批短信？')){
+		if(confirm('确定删除此批数据吗？')){
 			return true
 		}
-		else false;
+		return false;
 	};
 };

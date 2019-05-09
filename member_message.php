@@ -9,25 +9,27 @@ if (!isset($_COOKIE['username'])) {
 }
 //批量删除短信
 //有bug，post没有接收到表单传来的数据
-// if ($_GET['action']=='delete' && isset($_POST['ids'])) {
-// 	$_clean=array();
-// 	$_clean['ids']=_mysql_string(implode(',', $_POST['ids']));
-// 	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
-// 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
-// 		// _query("DELETE FROM tg_message WHERE tg_id IN ({$_clean['ids']})");
-// 		if (_affected_rows()) {
-// 			//关闭连接
-// 			_close();
-// 			//成功删除则跳转
-// 			_location('删除成功！','member_message.php');
-// 		}else{
-// 			_close();
-// 			_alert_back('删除失败');
-// 		}
-// 	}else{
-// 		_alert_back('非法登录');
-// 	}
-// }
+//已解决
+if ($_GET['action']=='delete' && isset($_POST['ids'])) {
+	$_clean=array();
+	$_clean['ids']=_mysql_string(implode(',', $_POST['ids']));
+	print_r($_clean['ids']);
+	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+		_query("DELETE FROM tg_message WHERE tg_id IN ({$_clean['ids']})");
+		if (_affected_rows()) {
+			//关闭连接
+			_close();
+			//成功删除则跳转
+			_location('删除成功！','member_message.php');
+		}else{
+			_close();
+			_alert_back('删除失败');
+		}
+	}else{
+		_alert_back('非法登录');
+	}
+}
 //分页模块
 //第一个参数获取总用户数，第二个参数指定每页的用户数量
 global $_pagenum,$_pagesize;
@@ -71,7 +73,7 @@ $_result=_query("SELECT tg_id,tg_fromuser,tg_content,tg_date,tg_state FROM tg_me
 						$_html['content_html']='<strong>'._title($_html['content']).'</strong>';
 					}
 			?>
-			<tr><td><?php echo $_rows['tg_fromuser']?></td><td><a href="member_message_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['content']?>"><?php echo $_html['content_html']?></a></td><td><?php echo $_html['date']?></td><td><?php echo $_html['state']?></td><td><input name="ids[]" value="<?php echo $_hmtl['id']?>" type="checkbox"></td></tr>
+			<tr><td><?php echo $_rows['tg_fromuser']?></td><td><a href="member_message_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['content']?>"><?php echo $_html['content_html']?></a></td><td><?php echo $_html['date']?></td><td><?php echo $_html['state']?></td><td><input name="ids[]" value="<?php echo $_html['id']?>" type="checkbox"></td></tr>
 			<?php 
 				}
 				_free_result($_result);
