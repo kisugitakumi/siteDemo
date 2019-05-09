@@ -25,6 +25,18 @@ $_html=_html(_get_xml('new.xml'));
 
 <div id="list">
 	<h2>帖子列表</h2>
+	<a href="post.php" class="post">发表文章</a>
+	<ul class="article">
+		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon12"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon2"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<li class="icon3"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+	</ul>
 </div>
 
 <div id="user">

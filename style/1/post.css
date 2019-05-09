@@ -1,0 +1,85 @@
+@charset 'utf-8';
+#post{
+	width: auto;
+	height: 600px;
+	border: 2px solid #ccc;
+	font-size: 12px;
+}
+#post h2{
+	text-indent: 0;
+	text-align: center;
+}
+#post dl{
+	width: 450px;
+	margin: 0 auto;
+}
+#post dl dt{
+	text-align: center;
+	padding: 10px ,0;
+	font-weight: bold;
+}
+#post dl dd{
+	padding: 5px 0;
+}
+
+#post dl dd label{
+	cursor: pointer;
+	display: inline-block;
+	height: 20px;
+	padding: 0 2px 0 0;
+}
+#post dl dd div#ubb{
+	width: 410px;
+	height: 26px;
+	background: url(../../images/bgMenubar.gif);
+	border: 1px dashed #333;
+	border-bottom: 1px solid #666;
+}
+#post dl dd div#ubb img{
+	display: block;
+	float: left;
+	padding: 5px 0 0 6px;
+}
+#post dl dd textarea{
+	width: 400px;
+	border: 1px dashed #333;
+	border-top: none;
+	background: #fff;
+	overflow-y: scroll;
+	resize: none;
+	padding: 5px;
+}
+
+#post dl dd input.text{
+	width: 250px;
+	height: 19px;
+	border: 1px dashed #333;
+	background: #fff;
+}
+
+#post dl dd input.yzm{
+	width: 60px;
+	height: 19px;
+	border: 1px dashed #333;
+	background: #fff;
+}
+
+#post dl dd input.submit{
+	width: 75px;
+	height: 21px;
+	border: 1px dashed #333;
+	background: #fff;
+	/*鼠标放上后显示手型*/
+	cursor: pointer;
+	color: #333;
+	margin-left: 30px;
+}
+#post dl dd input.submit:hover{
+	background: #eee;
+}
+#post dl dd img#code{
+	position: relative;
+	top: 8px;
+	cursor: pointer;
+	margin-left: 5px;
+}
