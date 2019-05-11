@@ -226,4 +226,33 @@ function _check_content($_string){
 	}
 }
 
+/**
+ * 帖子标题长度检查
+ * @param  [type] $_string [description]
+ * @param  [type] $_min    [description]
+ * @param  [type] $_max    [description]
+ * @return [type]          [description]
+ */
+function _check_post_title($_string,$_min,$_max){
+	//长度小于2位或者大于40位 不予通过
+	if(mb_strlen($_string,'utf-8')<$_min || mb_strlen($_string,'utf-8')>$_max){
+		_alert_back('帖子标题不得小于'.$_min.'位或大于'.$_max.'位');
+	}else{
+		return $_string;
+	}
+}
+
+/**
+ * 帖子长度检查
+ * @param  [type] $_string [description]
+ * @param  [type] $_num    [description]
+ * @return [type]          [description]
+ */
+function _check_post_content($_string,$_num){
+	if(mb_strlen($_string,'utf-8')<$_num){
+		_alert_back('帖子内容不得小于'.$_num.'位！');
+	}else{
+		return $_string;
+	}
+}
 ?>
