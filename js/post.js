@@ -71,7 +71,7 @@ window.onload=function(){//实现ubb功能
 	ubbimg[11].onclick=function(){
 		var flash=prompt('请输入视频地址：','http://');
 		if (flash) {
-			if(/^https?:\/\/(\w+\.)?[\w\-\.]+(\.\w+)+$/.test(flash)){
+			if(/^https?:\/\/(\w+\.)?[\w\-\.]+(\.\w+)+/.test(flash)){
 				content('[flash]'+flash+'[/flash]');
 			}else{
 				alert('视频地址不合法！');

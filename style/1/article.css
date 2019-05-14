@@ -1,0 +1,113 @@
+@charset 'utf-8';
+#article{
+	width: auto;
+	min-height: 800px;
+	border: 2px solid #ccc;
+	font-size: 12px;
+}
+#article h2{
+	text-indent: 0;
+	text-align: center;
+}
+#article #subject{
+
+}
+#article #subject dl{
+	width: 170px;
+	padding: 10px 0 0 45px;
+	float: left;
+}
+#article #subject dl dt{
+	width: 170px;
+	margin: 0 0 5px 0;
+}
+#article #subject dl dt img{
+	margin: 0 auto;
+	display: block;
+}
+#article #subject dl dd{
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	width: 85px;
+	float: left;
+}
+#article #subject dl dd.email,#user dl dd.url{
+	width: 250px;
+	text-align: left;
+	padding: 2px 0 0 0;
+	text-indent: 5px;
+}
+#article #subject dl dd a{
+	text-decoration: none;
+	color: #333;
+}
+#article #subject dl dd.user{
+	width: 170px;
+	float: none;
+	color: #f60;
+}
+#article #subject dl dd.message{
+	background: url(../../images/x1.gif) no-repeat 5px 35%;
+}
+#article #subject dl dd.friend{
+	background: url(../../images/x2.gif) no-repeat left 35%;
+}
+#article #subject dl dd.guest{
+	background: url(../../images/x3.gif) no-repeat 5px 35%;
+}
+#article #subject dl dd.flower{
+	background: url(../../images/x4.gif) no-repeat left 35%;
+}
+#article div.content{
+	float: right;
+	width: 680px;
+	padding: 5px 20px 0 0;
+}
+#article div.content .user{
+	height: 30px;
+	line-height: 30px;
+	background: url(../../images/member.gif) no-repeat left center;
+	border-bottom: 1px dashed #999;
+	color: #666;
+	padding: 0 0 0 20px;
+}
+#article div.content .user span{
+	float: right;
+	color: black;
+}
+#article div.content h3{
+	font-size: 16px;
+	height: 40px;
+	line-height: 40px;
+}
+#article div.content h3 img{
+	position: relative;
+	top: 2px;
+}
+#article div.content .detail{
+	line-height: 200%;
+	font-size: 14px;
+}
+#article div.content .detail a{
+	text-decoration: none;
+	color: blue;
+}
+#article div.content .detail a:hover{
+	color: #f60;
+	text-decoration: underline;
+}
+#article div.content .read{
+	font-size: 12px;
+	color: #666;
+	padding: 10px 0 0 0;
+}
+#article p.line{
+	width: 95%;
+	margin: 0 auto;
+	clear: both;
+	height: 10px;
+	border-bottom: 1px dashed #333;
+	/*以下没有，防止网址下移*/
+	padding: 10px 0 0 0;
+}

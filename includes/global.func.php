@@ -169,6 +169,30 @@ function _set_xml($_xmlfile,$_clean){
 }
 
 /**
+ * ubb解析函数
+ * @param  [type] $_string [description]
+ * @return [type]          [description]
+ */
+function _ubb($_string){
+	//将输入的回车键转换为换行符
+	$_string=nl2br($_string);
+	$_string=preg_replace('/\[size=(.*)\](.*)\[\/size\]/U','<span style="font-size:\1px">\2</span>',$_string);
+	$_string=preg_replace('/\[b\](.*)\[\/b\]/U','<strong>\1</strong>',$_string);
+	$_string=preg_replace('/\[i\](.*)\[\/i\]/U','<em>\1</em>',$_string);
+	$_string=preg_replace('/\[u\](.*)\[\/u\]/U','<span style="text-decoration:underline">\1</span>',$_string);
+	$_string=preg_replace('/\[s\](.*)\[\/s\]/U','<span style="text-decoration:line-through">\1</span>',$_string);
+	$_string=preg_replace('/\[color=(.*)\](.*)\[\/color\]/U','<span style="color:\1">\2</span>',$_string);
+	$_string=preg_replace('/\[url\](.*)\[\/url\]/U','<a href="\1" target="_blank">\1</a>',$_string);
+	$_string=preg_replace('/\[email\](.*)\[\/email\]/U','<a href="mailto:\1">\1</a>',$_string);
+	$_string=preg_replace('/\[img\](.*)\[\/img\]/U','<img src="\1" alt="图片">',$_string);
+	$_string=preg_replace('/\[flash\](.*)\[\/flash\]/U','<embed style="width:480px;height:400px;" src="\1">',$_string);
+	return $_string;
+}
+
+
+
+
+/**
  * 短信内容长度截取函数
  * @param  [type] $_string [description]
  * @return [type]          [description]
