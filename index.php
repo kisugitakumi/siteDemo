@@ -10,7 +10,7 @@ $_html=_html(_get_xml('new.xml'));
 //读取帖子列表
 global $_pagenum,$_pagesize;
 _page("SELECT tg_id FROM tg_article;",10);
-$_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM tg_article ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
+$_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM tg_article WHERE tg_reid=0 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
 ?>
 <!DOCTYPE html>
 <html>
