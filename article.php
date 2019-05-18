@@ -1,8 +1,14 @@
 <?php 
+session_start();
 define('IN_TG', 'true');
 define('SCRIPT', 'article');
 //引入公共文件commom.inc.php
 require dirname(__FILE__).'/includes/common.inc.php';
+//接收回帖
+if ($_GET['action']=='rearticle') {
+	echo '回帖';
+	exit();
+}
 //读出数据
 if (isset($_GET['id'])) {
 	//提取出数据库中的帖子ID
@@ -40,7 +46,8 @@ if (isset($_GET['id'])) {
 <head>
 <title>多用户留言系统--帖子详情</title>
 <?php require ROOT_PATH.'includes/title.inc.php'; ?>
-<script type="text/javascript" src="js/blog.js"></script>
+<script type="text/javascript" src="js/code.js"></script>
+<script type="text/javascript" src="js/article.js"></script>
 </head>
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
@@ -71,7 +78,21 @@ if (isset($_GET['id'])) {
 			</div>
 		</div>
 	</div>
+	<?php 
+		if (isset($_COOKIE['username'])) {?>
 	<p class="line"></p>
+	<form method="post" action="?action=rearticle">
+		<dl>
+			<dd>标  题：<input type="text" name="title" class="text" value="RE:<?php echo $_html['title']?>" readonly="readonly">（*必填，2-40字）</dd>
+			<dd id="q">贴  图：<a href="javascript:;">Q图系列[1]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;">Q图系列[2]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;">Q图系列[3]</a></dd>
+			<dd>
+				<?php include ROOT_PATH.'includes/ubb.inc.php'?>
+				<textarea name="content" rows="14"></textarea>
+			</dd>
+			<dd>验 &nbsp;证 码：<input type="text" name="code" class="text yzm"><img src="code.php" id="code"><input type="submit" class="submit" value="发表帖子"></dd>
+		</dl>
+	</form>
+	<?php } ?>
 </div>
 
 <?php require ROOT_PATH.'includes/footer.inc.php'; ?>

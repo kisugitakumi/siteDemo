@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vip>
-	<id>30</id>
-	<username>李小龙</username>
+	<id>31</id>
+	<username>张浩然</username>
 	<sex>男</sex>
-	<face>face/m38.gif</face>
-	<email>1696482260@qq.com</email>
-	<url></url>
+	<face>face/m01.gif</face>
+	<email>123456@qq.com</email>
+	<url>http://123456.com</url>
 </vip>

@@ -66,11 +66,11 @@ $_result=_query("SELECT tg_id,tg_fromuser,tg_content,tg_date,tg_state FROM tg_me
 					if($_rows['tg_state']==1){
 						$_html['state']='<img src="images/noread.gif" alt="已读" title="已读">';
 						//字体正常显示
-						$_html['content_html']=_title($_html['content']);
+						$_html['content_html']=_title($_html['content'],14);
 					}else{
 						$_html['state']='<img src="images/read.gif" alt="未读" title="未读">';
 						//字体加粗显示
-						$_html['content_html']='<strong>'._title($_html['content']).'</strong>';
+						$_html['content_html']='<strong>'._title($_html['content'],14).'</strong>';
 					}
 			?>
 			<tr><td><?php echo $_rows['tg_fromuser']?></td><td><a href="member_message_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['content']?>"><?php echo $_html['content_html']?></a></td><td><?php echo $_html['date']?></td><td><?php echo $_html['state']?></td><td><input name="ids[]" value="<?php echo $_html['id']?>" type="checkbox"></td></tr>

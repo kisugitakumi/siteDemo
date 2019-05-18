@@ -73,6 +73,7 @@ h2{
 	clear: both;
 	padding: 30px 0;
 	position: relative;
+	font-size: 12px;
 }
 #page_num ul{
 	position: absolute;
@@ -102,6 +103,7 @@ h2{
 	height: 20px;
 	clear: both;
 	padding: 20px 0;
+	font-size: 12px;
 }
 #page_text ul{
 	text-align: center;

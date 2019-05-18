@@ -7,6 +7,10 @@ define('SCRIPT', 'index');
 require dirname(__FILE__).'/includes/common.inc.php';
 //读取xml文件
 $_html=_html(_get_xml('new.xml'));
+//读取帖子列表
+global $_pagenum,$_pagesize;
+_page("SELECT tg_id FROM tg_article;",10);
+$_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM tg_article ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,16 +31,21 @@ $_html=_html(_get_xml('new.xml'));
 	<h2>帖子列表</h2>
 	<a href="post.php" class="post">发表文章</a>
 	<ul class="article">
-		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon1"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon12"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon2"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
-		<li class="icon3"><em>阅读数(<strong>72</strong>)评论数(<strong>72</strong>)</em><a href="###">创意时代：解密QQ仙剑奇侠传美术创意</a></li>
+		<?php 
+			$_htmllist=array();
+			while(!!$_rows=_fetch_array_list($_result)){
+				$_htmllist['id']=$_rows['tg_id'];
+				$_htmllist['type']=$_rows['tg_type'];
+				$_htmllist['readcount']=$_rows['tg_readcount'];
+				$_htmllist['commentcount']=$_rows['tg_commentcount'];
+				$_htmllist['title']=$_rows['tg_title'];
+				$_htmllist=_html($_htmllist);
+				echo '<li class="icon'.$_htmllist['type'].'"><em>阅读数(<strong>'.$_htmllist['readcount'].'</strong>)评论数(<strong>'.$_htmllist['commentcount'].'</strong>)</em><a href="article.php?id='.$_htmllist['id'].'">'._title($_htmllist['title']=$_rows['tg_title'],20).'</a></li>';
+			}
+			_free_result($_result);
+		?>
 	</ul>
+	<?php _paging(2);?>
 </div>
 
 <div id="user">

@@ -197,9 +197,9 @@ function _ubb($_string){
  * @param  [type] $_string [description]
  * @return [type]          [description]
  */
-function _title($_string){
-	if (mb_strlen($_string,'utf-8')>14) {
-		$_string=mb_substr($_string,0,14,'utf-8').'...';
+function _title($_string,$_strlen){
+	if (mb_strlen($_string,'utf-8')>$_strlen) {
+		$_string=mb_substr($_string,0,$_strlen,'utf-8').'...';
 	}
 	return $_string;
 }
@@ -253,7 +253,7 @@ function _page($_sql,$_size){
 	global $_page,$_pagesize,$_pagenum,$_pageabsolute,$_num;
 	if (isset($_GET['page'])) {
 	$_page=$_GET['page'];
-	if (empty($_page) || $_page<0 || !is_numeric($_page)) {
+	if (empty($_page) || $_page<=0 || !is_numeric($_page)) {
 		$_page=1;
 	} else{
 		$_page=intval($_page);
@@ -318,6 +318,8 @@ function _paging($_type){
 		}
 		echo '</ul>';
 	echo '</div>';
+	}else{
+		_paging(2);
 	}
 }
 

@@ -64,7 +64,7 @@ $_result=_query("SELECT tg_id,tg_fromuser,tg_content,tg_date,tg_flower FROM tg_f
 					$_html=_html($_html);
 					$_html['count']+=$_html['flower'];
 			?>
-			<tr><td><?php echo $_rows['tg_fromuser']?></td><td><img src="images/x4.gif" alt="花朵"> x<?php echo $_html['flower']?>朵</td><td><?php echo _title($_html['content'])?></td><td><?php echo $_html['date']?></td><td><input name="ids[]" value="<?php echo $_html['id']?>" type="checkbox"></td></tr>
+			<tr><td><?php echo $_rows['tg_fromuser']?></td><td><img src="images/x4.gif" alt="花朵"> x<?php echo $_html['flower']?>朵</td><td><?php echo _title($_html['content'],14)?></td><td><?php echo $_html['date']?></td><td><input name="ids[]" value="<?php echo $_html['id']?>" type="checkbox"></td></tr>
 			<?php 
 				}
 				_free_result($_result);
