@@ -255,4 +255,18 @@ function _check_post_content($_string,$_num){
 		return $_string;
 	}
 }
+
+/**
+ * 签名长度检查
+ * @param  [type] $_string [description]
+ * @param  [type] $_num    [description]
+ * @return [type]          [description]
+ */
+function _check_autograph($_string,$_num){
+	if(mb_strlen($_string,'utf-8')>$_num){
+		_alert_back('签名内容不得大于'.$_num.'位！');
+	}else{
+		return $_string;
+	}
+}
 ?>

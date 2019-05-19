@@ -22,26 +22,32 @@ if($_GET['action']=='modify'){
 		$_clean['email']=_check_email($_POST['email'],6,40);
 		$_clean['qq']=_check_qq($_POST['qq']);
 		$_clean['url']=_check_url($_POST['url'],40);
+		$_clean['switch']=$_POST['switch'];
+		$_clean['autograph']=_check_autograph($_POST['autograph'],200);
 		
 		//修改资料
-		if (empty($_clean['password'])) {
+		if (empty($_clean['password'])) {//没有修改密码
 			_query("UPDATE tg_user SET 
 										tg_sex='{$_clean['sex']}',
 										tg_face='{$_clean['face']}',
 										tg_email='{$_clean['email']}',
 										tg_url='{$_clean['url']}',
-										tg_qq='{$_clean['qq']}'
+										tg_qq='{$_clean['qq']}',
+										tg_switch='{$_clean['switch']}',
+										tg_autograph='{$_clean['autograph']}'
 									WHERE
 										tg_username='{$_COOKIE['username']}';
 				");
-		}else{
+		}else{//修改了密码
 			_query("UPDATE tg_user SET 
 										tg_password='{$_clean['password']}',
 										tg_sex='{$_clean['sex']}',
 										tg_face='{$_clean['face']}',
 										tg_email='{$_clean['email']}',
 										tg_url='{$_clean['url']}',
-										tg_qq='{$_clean['qq']}'
+										tg_qq='{$_clean['qq']}',
+										tg_switch='{$_clean['switch']}',
+										tg_autograph='{$_clean['autograph']}'
 									WHERE
 										tg_username='{$_COOKIE['username']}';
 				");
@@ -64,7 +70,7 @@ if($_GET['action']=='modify'){
 //是否正常登陆
 if(isset($_COOKIE['username'])){
 	//获取数据
-	$_rows=_fetch_array("SELECT tg_username,tg_sex,tg_face,tg_email,tg_url,tg_qq FROM tg_user WHERE tg_username='{$_COOKIE['username']}'");
+	$_rows=_fetch_array("SELECT tg_switch,tg_autograph,tg_username,tg_sex,tg_face,tg_email,tg_url,tg_qq FROM tg_user WHERE tg_username='{$_COOKIE['username']}'");
 	if($_rows){
 		$_html=array();
 		$_html['username']=$_rows['tg_username'];
@@ -73,22 +79,30 @@ if(isset($_COOKIE['username'])){
 		$_html['email']=$_rows['tg_email'];
 		$_html['url']=$_rows['tg_url'];
 		$_html['qq']=$_rows['tg_qq'];
+		$_html['switch']=$_rows['tg_switch'];
+		$_html['autograph']=$_rows['tg_autograph'];
 		$_html=_html($_html);
 		//性别选择
 		if($_html['sex']=='男'){
-			$_html['sex_html']='<input type="radio" name="sex" value="男" checked="checked"/>男<input type="radio" name="sex" value="女" checked="checked"/>女';
+			$_html['sex_html']='<input type="radio" name="sex" value="男" checked="checked"/>男<input type="radio" name="sex" value="女"/>女';
 		}elseif($_html['sex']=='女'){
-			$_html['sex_html']='<input type="radio" name="sex" value="男" checked="checked"/>男<input type="radio" name="sex" value="女" checked="checked"/>女';
+			$_html['sex_html']='<input type="radio" name="sex" value="男"/>男<input type="radio" name="sex" value="女" checked="checked"/>女';
 		}
 		//头像选择，有点bug
 		$_html['face_html']='<select class="face" name="face">';
 		foreach (range(1,9) as $_num) {
-			$_html['face_html'].="<option value='face/m0$_num.gif'>face/m0$_num.gif</optoin>";
+			$_html['face_html'].='<option value="face/m'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
 		}
 		foreach (range(10,64) as $_num) {
-			$_html['face_html'].="<option value='face/m$_num.gif'>face/m$_num.gif</option>";
+			$_html['face_html'].='<option value="face/m'.$_num.'.gif">face/m'.$_num.'.gif</option>';
 		}
 		$_html['face_html'].='</select>';
+		//签名开关
+		if($_html['switch']==1){
+			$_html['switch_html']='<input type="radio" checked="checked" name="switch" value="1">启用<input type="radio" name="switch" value="0">禁用';
+		}elseif($_html['switch']==0){
+			$_html['switch_html']='<input type="radio" name="switch" value="1">启用<input type="radio" name="switch" value="0" checked="checked">禁用';
+		}
 	}else{
 		_alert_back('此用户不存在');
 	}
@@ -120,8 +134,9 @@ if(isset($_COOKIE['username'])){
 			<dd>电子邮件：<input type="text" class="text" name="email" value="<?php echo $_html['email']?>"></dd>
 			<dd>主  页：<input type="text" class="text" name="url" value="<?php echo $_html['url']?>"></dd>
 			<dd>Q    Q：<input type="text" class="text" name="qq" value="<?php echo $_html['qq']?>"></dd>
-			<dd>验 &nbsp;证 码：<input type="text" name="code" class="text yzm"><img src="code.php" id="code"></dd>
-			<dd><input type="submit" class="submit" value="修改资料"></dd>
+			<dd>个性签名：<?php echo $_html['switch_html']?>(可以使用UBB代码)<p><textarea name="autograph" style="resize: none;overflow-x: hidden;"><?php echo $_html['autograph']?></textarea></p>
+			</dd>
+			<dd>验 &nbsp;证 码：<input type="text" name="code" class="text yzm"><img src="code.php" id="code">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="submit" value="修改资料"></dd>
 		</dl>
 		</form>
 	</div>

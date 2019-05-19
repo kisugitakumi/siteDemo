@@ -72,12 +72,14 @@ if (isset($_GET['id'])) {
 		$_html['last_modify_date']=$_rows['tg_last_modify_date'];
 		
 		//拿出用户名查找发表帖子的用户信息
-		if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url FROM tg_user WHERE tg_username='{$_html['username_subject']}';")){
+		if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url,tg_switch,tg_autograph FROM tg_user WHERE tg_username='{$_html['username_subject']}';")){
 			$_html['userid']=$_rows['tg_id'];
 			$_html['sex']=$_rows['tg_sex'];
 			$_html['face']=$_rows['tg_face'];
 			$_html['email']=$_rows['tg_email'];
 			$_html['url']=$_rows['tg_url'];
+			$_html['switch']=$_rows['tg_switch'];
+			$_html['autograph']=$_rows['tg_autograph'];
 			$_html=_html($_html);
 			
 			//创建一个全局变量，做带参数的分页
@@ -94,6 +96,15 @@ if (isset($_GET['id'])) {
 				$_html['last_modify_date_string']='本帖已由['.$_html['username_subject'].']于'.$_html['last_modify_date'].'最后修改';
 			}
 
+			//给楼主回复
+			if ($_COOKIE['username']) {
+				$_html['re']='<span>[<a href="#ree" name="re" title="回复1楼的'.$_html['username_subject'].'">回复</a>]</span>';
+			}
+
+			//个性签名
+			if ($_html['switch']==1) {
+				$_html['autograph_html']='<p class="autograph">'.$_html['autograph'].'</p>';
+			}
 			//读取回帖
 			global $_pagenum,$_pagesize,$_page;
 			_page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}';",2);
@@ -142,9 +153,10 @@ if (isset($_GET['id'])) {
 			<div class="user">
 				<span><?php echo $_html['username_modify']?> 1#</span><?php echo $_html['username_subject']?> | 发表于<?php echo $_html['date']?>
 			</div>
-			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"></h3>
+			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"><?php echo $_html['re']?></h3>
 			<div class="detail">
 				<?php echo _ubb($_html['content']);?>
+				<?php echo $_html['autograph_html'];?>
 			</div>
 			<div class="read">
 				<p><?php echo $_html['last_modify_date_string']?></p>
@@ -164,22 +176,32 @@ if (isset($_GET['id'])) {
 			$_html['date']=$_rows['tg_date'];
 			$_html=_html($_html);
 			
-			if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url FROM tg_user WHERE tg_username='{$_html['username']}';")){
+			if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url,tg_switch,tg_autograph FROM tg_user WHERE tg_username='{$_html['username']}';")){
 				$_html['userid']=$_rows['tg_id'];
 				$_html['sex']=$_rows['tg_sex'];
 				$_html['face']=$_rows['tg_face'];
 				$_html['email']=$_rows['tg_email'];
 				$_html['url']=$_rows['tg_url'];
+				$_html['switch']=$_rows['tg_switch'];
+				$_html['autograph']=$_rows['tg_autograph'];
 				$_html=_html($_html);
-				if ($_i==2) {
+				//楼层显示
+				if ($_page==1 && $_i==2) {
 					if ($_html['username']==$_html['username_subject']) {
 						$_html['username_html']=$_html['username'].'[楼主]';
 					}else{
 						$_html['username_html']=$_html['username'].'[沙发]';
 					}
+				}else{
+					$_html['username_html']=$_html['username'];
 				}
+				
 			}else{
 				//这个用户可能已被删除
+			}
+			//跟帖回复
+			if ($_COOKIE['username']) {
+				$_html['re']='<span>[<a href="#ree" name="re" title="回复'.($_i+(($_page-1)*$_pagesize)).'楼的'.$_html['username'].'">回复</a>]</span>';
 			}
 	?>
 	<div class="re">
@@ -197,9 +219,15 @@ if (isset($_GET['id'])) {
 			<div class="user">
 				<span><?php echo $_i+(($_page-1)*$_pagesize);?>#</span><?php echo $_html['username']?> | 发表于<?php echo $_html['date']?>
 			</div>
-			<h3>主题：<?php echo $_html['retitle']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"></h3>
+			<h3>主题：<?php echo $_html['retitle']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"><?php echo $_html['re']?></h3>
 			<div class="detail">
 				<?php echo _ubb($_html['content'])?>
+				<?php 
+					//回帖中的个性签名
+					if ($_html['switch']==1) {
+						echo '<p class="autograph">'._ubb($_html['autograph']).'</p>';
+					}
+				?>
 			</div>
 			<div class="read">
 				阅读量：(<?php echo $_html['readcount']?>) 评论量：(<?php echo $_html['commemtcount']?>)
@@ -215,7 +243,8 @@ if (isset($_GET['id'])) {
 	?>
 	<?php 
 		if (isset($_COOKIE['username'])) {?>
-	<p class="line"></p>
+	<!-- <p class="line"></p> -->
+	<a name="ree"></a>
 	<form method="post" action="?action=rearticle">
 		<input type="hidden" name="reid" value="<?php echo $_html['reid']?>">
 		<input type="hidden" name="type" value="<?php echo $_html['type']?>">

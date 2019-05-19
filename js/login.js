@@ -10,7 +10,7 @@ window.onload=function(){
 			fm.username.focus();
 			return false;
 		}
-		if (/[<>\'\"\ \ ]/.test(fm.username.value)) {
+		if (/[<>\'\"\ ]/.test(fm.username.value)) {
 			alert('用户名不得包含非法字符');
 			fm.username.value='';//清空
 			fm.username.focus();
