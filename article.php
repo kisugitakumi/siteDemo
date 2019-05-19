@@ -38,6 +38,8 @@ if ($_GET['action']=='rearticle') {
 										NOW()
 		);");
 		if (_affected_rows()==1) {
+			//每增加一条回帖，回复数就加一
+			_query("UPDATE tg_article SET tg_commentcount=tg_commentcount+1 WHERE tg_reid=0 AND tg_id='{$_clean['reid']}';");
 			//关闭连接和session
 			_close();
 			_session_destroy();
@@ -55,29 +57,43 @@ if ($_GET['action']=='rearticle') {
 //读出数据
 if (isset($_GET['id'])) {
 	//提取出数据库中的帖子ID
-	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}';")){
+	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date,tg_last_modify_date FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}';")){
 		//累积阅读量
 		_query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}';");
 		$_html=array();
 		$_html['reid']=$_rows['tg_id'];
-		$_html['username']=$_rows['tg_username'];
+		$_html['username_subject']=$_rows['tg_username'];
 		$_html['type']=$_rows['tg_type'];
 		$_html['title']=$_rows['tg_title'];
 		$_html['content']=$_rows['tg_content'];
 		$_html['readcount']=$_rows['tg_readcount'];
 		$_html['commemtcount']=$_rows['tg_commentcount'];
 		$_html['date']=$_rows['tg_date'];
-		//创建一个全局变量，做带参数的分页
-		global $_id;
-		$_id='id='.$_html['reid'].'&';
+		$_html['last_modify_date']=$_rows['tg_last_modify_date'];
+		
 		//拿出用户名查找发表帖子的用户信息
-		if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url FROM tg_user WHERE tg_username='{$_html['username']}';")){
+		if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url FROM tg_user WHERE tg_username='{$_html['username_subject']}';")){
 			$_html['userid']=$_rows['tg_id'];
 			$_html['sex']=$_rows['tg_sex'];
 			$_html['face']=$_rows['tg_face'];
 			$_html['email']=$_rows['tg_email'];
 			$_html['url']=$_rows['tg_url'];
 			$_html=_html($_html);
+			
+			//创建一个全局变量，做带参数的分页
+			global $_id;
+			$_id='id='.$_html['reid'].'&';
+
+			//主题帖子修改
+			if ($_html['username_subject']==$_COOKIE['username']) {
+				$_html['username_modify']='[<a href="article_modify.php?id='.$_html['reid'].'">修改</a>]';
+			}
+
+			//读取最后修改时间,没有修改的不用显示
+			if ($_html['last_modify_date']!='0000-00-00 00:00:00') {
+				$_html['last_modify_date_string']='本帖已由['.$_html['username_subject'].']于'.$_html['last_modify_date'].'最后修改';
+			}
+
 			//读取回帖
 			global $_pagenum,$_pagesize,$_page;
 			_page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}';",2);
@@ -113,8 +129,8 @@ if (isset($_GET['id'])) {
 	?>
 	<div id="subject">
 		<dl>
-			<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
-			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
+			<dd class="user"><?php echo $_html['username_subject']?>(<?php echo $_html['sex']?>)[楼主]</dd>
+			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username_subject']?>"></dt>
 			<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['userid']?>">发消息</a></dd>
 			<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['userid']?>">加为好友</a></dd>
 			<dd class="guest">写留言</dd>
@@ -124,13 +140,14 @@ if (isset($_GET['id'])) {
 		</dl>
 		<div class="content">
 			<div class="user">
-				<span>1#</span><?php echo $_html['username']?> | 发表于<?php echo $_html['date']?>
+				<span><?php echo $_html['username_modify']?> 1#</span><?php echo $_html['username_subject']?> | 发表于<?php echo $_html['date']?>
 			</div>
 			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"></h3>
 			<div class="detail">
 				<?php echo _ubb($_html['content']);?>
 			</div>
 			<div class="read">
+				<p><?php echo $_html['last_modify_date_string']?></p>
 				阅读量：(<?php echo $_html['readcount']?>) 评论量：(<?php echo $_html['commemtcount']?>)
 			</div>
 		</div>
@@ -138,13 +155,15 @@ if (isset($_GET['id'])) {
 	<?php }?>
 	<p class="line"></p>
 	<?php
+		$_i=2;
 		while(!!$_rows=_fetch_array_list($_result)){
 			$_html['username']=$_rows['tg_username'];
-			$_html['title']=$_rows['tg_title'];
+			$_html['retitle']=$_rows['tg_title'];
 			$_html['type']=$_rows['tg_type'];
 			$_html['content']=$_rows['tg_content'];
 			$_html['date']=$_rows['tg_date'];
 			$_html=_html($_html);
+			
 			if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url FROM tg_user WHERE tg_username='{$_html['username']}';")){
 				$_html['userid']=$_rows['tg_id'];
 				$_html['sex']=$_rows['tg_sex'];
@@ -152,13 +171,20 @@ if (isset($_GET['id'])) {
 				$_html['email']=$_rows['tg_email'];
 				$_html['url']=$_rows['tg_url'];
 				$_html=_html($_html);
+				if ($_i==2) {
+					if ($_html['username']==$_html['username_subject']) {
+						$_html['username_html']=$_html['username'].'[楼主]';
+					}else{
+						$_html['username_html']=$_html['username'].'[沙发]';
+					}
+				}
 			}else{
 				//这个用户可能已被删除
 			}
 	?>
 	<div class="re">
 		<dl>
-			<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
+			<dd class="user"><?php echo $_html['username_html']?>(<?php echo $_html['sex']?>)</dd>
 			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
 			<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['userid']?>">发消息</a></dd>
 			<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['userid']?>">加为好友</a></dd>
@@ -169,9 +195,9 @@ if (isset($_GET['id'])) {
 		</dl>
 		<div class="content">
 			<div class="user">
-				<span>1#</span><?php echo $_html['username']?> | 发表于<?php echo $_html['date']?>
+				<span><?php echo $_i+(($_page-1)*$_pagesize);?>#</span><?php echo $_html['username']?> | 发表于<?php echo $_html['date']?>
 			</div>
-			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"></h3>
+			<h3>主题：<?php echo $_html['retitle']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"></h3>
 			<div class="detail">
 				<?php echo _ubb($_html['content'])?>
 			</div>
@@ -182,7 +208,8 @@ if (isset($_GET['id'])) {
 	</div>
 	<p class="line"></p>
 	<?php 
-		}
+		$_i++;
+	}
 		_free_result($_result);
 		_paging(1);
 	?>
