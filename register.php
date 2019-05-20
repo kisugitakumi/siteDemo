@@ -75,14 +75,14 @@ if ($_GET['action']=='register') {
 		$_clean['id']=_insert_id();
 		//关闭连接和session
 		_close();
-		_session_destroy();
+		//_session_destroy();
 		//生成XML
 		_set_xml('new.xml',$_clean);
 		//成功注册则跳转至首页
 		_location('注册成功！','active.php?active='.$_clean['active']);
 	}else{
 		_close();
-		_session_destroy();
+		//_session_destroy();
 		_location('注册失败！','register.php');
 	}
 	

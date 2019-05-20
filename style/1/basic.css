@@ -52,6 +52,9 @@ h2{
 	text-decoration: none;
 	color: #333;
 }
+#header ul li a.manage{
+	color: red;
+}
 
 #header ul li strong.noread{
 	background: url(../../images/noread.gif) no-repeat left center;
@@ -128,7 +131,7 @@ h2{
 }
 #member #member_sidebar{
 	width: 300px;
-	height: 500px;
+	height: 580px;
 	margin: 15px;
 	border: 1px dashed #999;
 	float: left;
@@ -163,7 +166,7 @@ h2{
 }
 #member #member_main{
 	width: 590px;
-	height: 500px;
+	height: 580px;
 	margin: 15px;
 	border: 1px dashed #999;
 	float: right;

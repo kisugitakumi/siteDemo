@@ -10,8 +10,9 @@ if ($_GET['action']=='rearticle') {
 	_check_code($_POST['code'],$_SESSION['code']);
 	//首先判断数据库中是否有这个用户存在
 	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
-	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+	if (!!$_rows=_fetch_array("SELECT tg_uniqid,tg_article_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+		_timed(time(),$_rows['tg_article_time'],30);
 		//接收数据
 		$_clean=array();
 		$_clean['reid']=$_POST['reid'];
@@ -38,16 +39,19 @@ if ($_GET['action']=='rearticle') {
 										NOW()
 		);");
 		if (_affected_rows()==1) {
+			//setcookie('article_time',time());
+			$_clean['time']=time();
+			_query("UPDATE tg_user SET tg_article_time='{$_clean['time']}' WHERE tg_username ='{$_COOKIE['username']}';");
 			//每增加一条回帖，回复数就加一
 			_query("UPDATE tg_article SET tg_commentcount=tg_commentcount+1 WHERE tg_reid=0 AND tg_id='{$_clean['reid']}';");
 			//关闭连接和session
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			//成功注册则跳转
 			_location('回帖成功！','article.php?id='.$_clean['reid']);
 		}else{
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			_alert_back('回帖失败！');
 		}
 	}else{

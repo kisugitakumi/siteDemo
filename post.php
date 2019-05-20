@@ -15,8 +15,10 @@ if ($_GET['action']=='post') {
 	_check_code($_POST['code'],$_SESSION['code']);
 	//首先判断数据库中是否有这个用户存在
 	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
-	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+	if (!!$_rows=_fetch_array("SELECT tg_uniqid,tg_post_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+		//验证是否在规定的时间外发帖,防止恶意发帖
+		_timed(time(),$_rows['tg_post_time'],60);
 		include ROOT_PATH.'includes/check.func.php';
 		//接收帖子内容
 		$_clean=array();
@@ -44,14 +46,17 @@ if ($_GET['action']=='post') {
 		if (_affected_rows()==1) {
 			//获取刚刚新增的ID
 			$_clean['id']=_insert_id();
+			//setcookie('post_time',time());
+			$_clean['time']=time();
+			_query("UPDATE tg_user SET tg_post_time='{$_clean['time']}' WHERE tg_username ='{$_COOKIE['username']}';");
 			//关闭连接和session
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			//成功发表则跳转
 			_location('发表成功！','article.php?id='.$_clean['id']);
 		}else{
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			_alert_back('发表失败！');
 		}
 	}

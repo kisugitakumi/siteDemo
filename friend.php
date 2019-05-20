@@ -48,11 +48,11 @@ if ($_GET['action']=='add') {
 			if (_affected_rows()==1) {
 				//关闭连接和session
 				_close();
-				_session_destroy();
+				//_session_destroy();
 				_alert_close('好友添加成功！请等待验证！');
 			}else{
 				_close();
-				_session_destroy();
+				//_session_destroy();
 				_alert_back('好友添加失败！');
 			}
 		}

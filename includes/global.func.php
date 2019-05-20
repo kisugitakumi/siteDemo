@@ -1,6 +1,27 @@
 <!-- 公共函数文件 -->
 <?php
 /**
+ * 必须是管理员才能进入manage.php网页
+ */
+function _manage_login(){
+	if (!(isset($_COOKIE['username'])) || !(isset($_SESSION['admin']))) {
+		_alert_back('非法登录!');
+	}
+}
+/**
+ * 验证是否在规定的时间外发帖,防止恶意发帖
+ * @param  [type] $_nowtime [description]
+ * @param  [type] $_pretime [description]
+ * @param  [type] $_second  [description]
+ * @return [type]           [description]
+ */
+function _timed($_nowtime,$_pretime,$_second){
+	if ($_nowtime-$_pretime<$_second) {
+		_alert_back('请于'.($_second-$_nowtime+$_pretime).'s后再发帖');
+	}
+}
+
+/**
  * 用来获取执行耗时
  * @return float
  * @access public

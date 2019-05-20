@@ -40,12 +40,12 @@ if ($_GET['action']=='modify') {
 		if (_affected_rows()==1) {
 			//关闭连接和session
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			//成功注册则跳转
 			_location('修改成功！','article.php?id='.$_clean['id']);
 		}else{
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			_alert_back('修改失败！');
 		}
 	}else{

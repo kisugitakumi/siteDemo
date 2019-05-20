@@ -37,11 +37,11 @@ if ($_GET['action']=='write') {
 		if (_affected_rows()==1) {
 			//关闭连接和session
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			_alert_close('短信发送成功');
 		}else{
 			_close();
-			_session_destroy();
+			//_session_destroy();
 			_alert_back('发送失败！');
 		}
 	}else{

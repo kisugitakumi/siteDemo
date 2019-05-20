@@ -1,4 +1,5 @@
 <?php 
+session_start();
 define('IN_TG', 'true');
 define('SCRIPT', 'blog');
 //引入公共文件commom.inc.php

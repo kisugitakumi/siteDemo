@@ -57,12 +57,12 @@ if($_GET['action']=='modify'){
 	if (_affected_rows()==1) {
 		//关闭连接和session
 		_close();
-		_session_destroy();
+		//_session_destroy();
 		//成功注册则跳转至首页
 		_location('修改成功！','member.php');
 	}else{
 		_close();
-		_session_destroy();
+		//_session_destroy();
 		_location('没有任何数据被修改！','member_modify.php');
 	}
 

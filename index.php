@@ -1,4 +1,5 @@
 <?php
+session_start();
 //防止外部网站恶意调用的常量
 define('IN_TG', true);
 //用来指定本页内容的常量
