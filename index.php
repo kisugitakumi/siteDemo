@@ -9,14 +9,13 @@ require dirname(__FILE__).'/includes/common.inc.php';
 //读取xml文件
 $_html=_html(_get_xml('new.xml'));
 //读取帖子列表
-global $_pagenum,$_pagesize;
-_page("SELECT tg_id FROM tg_article WHERE tg_reid=0;",10);
+global $_pagenum,$_pagesize,$_system;
+_page("SELECT tg_id FROM tg_article WHERE tg_reid=0;",$_system['article']);
 $_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM tg_article WHERE tg_reid=0 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>多用户留言系统--首页</title>
 <?php
 	require ROOT_PATH.'includes/title.inc.php';
 ?>

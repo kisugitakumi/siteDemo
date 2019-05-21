@@ -7,8 +7,12 @@ define('SCRIPT', 'register');
 require dirname(__FILE__).'/includes/common.inc.php';
 //判断登录状态
 _login_state();
+global $_system;
 //判断是否提交了
 if ($_GET['action']=='register') {
+	if (empty($_system['register'])) {
+		exit('不要非法注册！');
+	}
 	//防止恶意注册和跨站攻击
 	_check_code($_POST['code'],$_SESSION['code']);
 	//引入验证文件
@@ -95,7 +99,6 @@ if ($_GET['action']=='register') {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--注册</title>
 <?php
 	require ROOT_PATH.'includes/title.inc.php';
 ?>
@@ -107,6 +110,7 @@ if ($_GET['action']=='register') {
 
 <div id="register">
 	<h2>会员注册</h2>
+	<?php if(!empty($_system['register'])){?>
 	<form method="post" name='register' action="register.php?action=register">
 		<input type="hidden" name="uniqid" value="<?php echo ($_uniqid) ?>">
 		<!-- 隐藏字段的方法 -->
@@ -131,6 +135,9 @@ if ($_GET['action']=='register') {
 			<dd><input type="submit" class="submit" value="注册"></dd>
 		</dl>
 	</form>
+	<?php }else{
+		echo '<h4 style="text-align:center;padding:20px;">本站关闭了会员注册</h4>';
+	}?>
 </div>
 
 <?php require ROOT_PATH.'includes/footer.inc.php'; ?>

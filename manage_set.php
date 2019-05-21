@@ -6,6 +6,55 @@ define('SCRIPT', 'manage_set');
 require dirname(__FILE__).'/includes/common.inc.php';
 //必须是管理员才能登陆
 _manage_login();
+//修改系统表
+if ($_GET['action']=='set') {
+	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+		$_clean=array();
+		$_clean['webname']=$_POST['webname'];
+		$_clean['article']=$_POST['article'];
+		$_clean['blog']=$_POST['blog'];
+		$_clean['photo']=$_POST['photo'];
+		$_clean['skin']=$_POST['skin'];
+		$_clean['string']=$_POST['string'];
+		$_clean['post']=$_POST['post'];
+		$_clean['re']=$_POST['re'];
+		$_clean['code']=$_POST['code'];
+		$_clean['register']=$_POST['register'];
+		$_clean=_mysql_string($_clean);
+
+		//写入数据库
+		_query("UPDATE tg_system SET
+									tg_webname='{$_clean['webname']}',
+									tg_article='{$_clean['article']}',
+									tg_blog='{$_clean['blog']}',
+									tg_photo='{$_clean['photo']}',
+									tg_skin='{$_clean['skin']}',
+									tg_string='{$_clean['string']}',
+									tg_post='{$_clean['post']}',
+									tg_re='{$_clean['re']}',
+									tg_code='{$_clean['code']}',
+									tg_register='{$_clean['register']}'
+								WHERE
+									tg_id=1
+								LIMIT 1
+		;");
+		//判断是否修改成功
+		if (_affected_rows()==1) {
+			//关闭连接和session
+			_close();
+			//_session_destroy();
+			//成功注册则跳转至
+			_location('修改成功！','manage_set.php');
+		}else{
+			_close();
+			//_session_destroy();
+			_location('没有任何数据被修改！','manage_set.php');
+		}
+	}else{
+		_alert_back('异常!');
+	}
+}
 //读取系统表
 if (!!$_rows=_fetch_array("SELECT tg_webname,tg_article,tg_blog,tg_photo,tg_skin,tg_string,tg_post,tg_re,tg_code,tg_register FROM tg_system WHERE tg_id=1 LIMIT 1;")) {
 	$_html=array();
@@ -21,10 +70,10 @@ if (!!$_rows=_fetch_array("SELECT tg_webname,tg_article,tg_blog,tg_photo,tg_skin
 	$_html['register']=$_rows['tg_register'];
 	$_html=_html($_html);
 	//文章分页数选择
-	if ($_html['article']==10) {
-		$_html['article_html']='<select name="article"><option value="10" selected="selected">每页10篇</option><option value="15">每页15篇</option></select>';
-	}elseif ($_html['article']==15) {
-		$_html['article_html']='<select name="article"><option value="10">每页10篇</option><option value="15" selected="selected">每页15篇</option></select>';
+	if ($_html['article']==8) {
+		$_html['article_html']='<select name="article"><option value="8" selected="selected">每页8篇</option><option value="10">每页10篇</option></select>';
+	}elseif ($_html['article']==10) {
+		$_html['article_html']='<select name="article"><option value="8">每页8篇</option><option value="10" selected="selected">每页10篇</option></select>';
 	}
 	//博友分页数选择
 	if ($_html['blog']==15) {
@@ -81,7 +130,6 @@ if (!!$_rows=_fetch_array("SELECT tg_webname,tg_article,tg_blog,tg_photo,tg_skin
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--后台管理中心</title>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 </head>
 <body>
@@ -90,6 +138,7 @@ if (!!$_rows=_fetch_array("SELECT tg_webname,tg_article,tg_blog,tg_photo,tg_skin
 <?php require 'includes/manage.inc.php'; ?>
 	<div id="member_main">
 		<h2>后台管理中心</h2>
+		<form method="post" action="?action=set">
 		<dl>
 			<dd>·网站名称：<input type="text" name="webname" class="text" value="<?php echo $_html['webname']?>"></dd>
 			<dd>·文章每页列表数：<?php echo $_html['article_html'];?></dd>
@@ -103,6 +152,7 @@ if (!!$_rows=_fetch_array("SELECT tg_webname,tg_article,tg_blog,tg_photo,tg_skin
 			<dd>·是否 开放 注册：<?php echo $_html['register_html'];?></dd>
 			<dd><input type="submit" value="修改系统设置" class="submit"></dd>
 		</dl>
+		</form>
 	</div>
 
 </div>

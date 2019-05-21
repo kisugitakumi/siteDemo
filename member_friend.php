@@ -58,7 +58,6 @@ $_result=_query("SELECT tg_id,tg_tobro,tg_frombro,tg_content,tg_date,tg_state FR
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--好友列表</title>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 <script type="text/javascript" src="js/member_message.js"></script>
 </head>

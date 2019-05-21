@@ -10,7 +10,6 @@ _manage_login();
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--后台管理中心</title>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 </head>
 <body>

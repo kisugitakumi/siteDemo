@@ -6,13 +6,17 @@ define('SCRIPT', 'article');
 require dirname(__FILE__).'/includes/common.inc.php';
 //接收回帖
 if ($_GET['action']=='rearticle') {
+	global $_system;
 	//判断验证码
-	_check_code($_POST['code'],$_SESSION['code']);
+	if(!empty($_system['code'])){
+		_check_code($_POST['code'],$_SESSION['code']);
+	}
 	//首先判断数据库中是否有这个用户存在
 	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
 	if (!!$_rows=_fetch_array("SELECT tg_uniqid,tg_article_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+		
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
-		_timed(time(),$_rows['tg_article_time'],30);
+		_timed(time(),$_rows['tg_article_time'],$_system['re']);
 		//接收数据
 		$_clean=array();
 		$_clean['reid']=$_POST['reid'];
@@ -129,7 +133,6 @@ if (isset($_GET['id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-<title>多用户留言系统--帖子详情</title>
 <?php require ROOT_PATH.'includes/title.inc.php'; ?>
 <script type="text/javascript" src="js/code.js"></script>
 <script type="text/javascript" src="js/article.js"></script>
@@ -160,7 +163,7 @@ if (isset($_GET['id'])) {
 			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"><?php echo $_html['re']?></h3>
 			<div class="detail">
 				<?php echo _ubb($_html['content']);?>
-				<?php echo $_html['autograph_html'];?>
+				<?php echo _ubb($_html['autograph_html']);?>
 			</div>
 			<div class="read">
 				<p><?php echo $_html['last_modify_date_string']?></p>
@@ -259,7 +262,10 @@ if (isset($_GET['id'])) {
 				<?php include ROOT_PATH.'includes/ubb.inc.php'?>
 				<textarea name="content" rows="14"></textarea>
 			</dd>
-			<dd>验 &nbsp;证 码：<input type="text" name="code" class="text yzm"><img src="code.php" id="code"><input type="submit" class="submit" value="发表帖子"></dd>
+			
+			<dd><?php if(!empty($_system['code'])){?>验 &nbsp;证 码：
+			<input type="text" name="code" class="text yzm"><img src="code.php" id="code"><?php }?><input type="submit" class="submit" value="发表帖子"></dd>
+			
 		</dl>
 	</form>
 	<?php } ?>

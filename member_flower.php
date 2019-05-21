@@ -40,7 +40,6 @@ $_result=_query("SELECT tg_id,tg_fromuser,tg_content,tg_date,tg_flower FROM tg_f
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--花朵列表</title>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 <script type="text/javascript" src="js/member_message.js"></script>
 </head>

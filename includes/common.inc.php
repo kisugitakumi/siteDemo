@@ -34,4 +34,21 @@ if (empty($_message['count'])) {
 }else{
 	$_message_html='<strong class="read"><a href="member_message.php">('.$_message['count'].')</a></strong>';
 }
+//网站系统设置初始化
+if (!!$_rows=_fetch_array("SELECT tg_webname,tg_article,tg_blog,tg_photo,tg_skin,tg_string,tg_post,tg_re,tg_code,tg_register FROM tg_system WHERE tg_id=1 LIMIT 1;")) {
+	$_system=array();
+	$_system['webname']=$_rows['tg_webname'];
+	$_system['article']=$_rows['tg_article'];
+	$_system['blog']=$_rows['tg_blog'];
+	$_system['photo']=$_rows['tg_photo'];
+	$_system['skin']=$_rows['tg_skin'];
+	$_system['post']=$_rows['tg_post'];
+	$_system['re']=$_rows['tg_re'];
+	$_system['code']=$_rows['tg_code'];
+	$_system['register']=$_rows['tg_register'];
+	$_system['string']=$_rows['tg_string'];
+	$_system=_html($_system);
+}else{
+	exit('系统表异常，请管理员检查！');
+}
 ?>

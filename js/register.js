@@ -2,11 +2,14 @@
 window.onload=function(){
 	code();
 	var faceimg=document.getElementById('faceimg');
-	faceimg.onclick=function(){
-		window.open('face.php','face','width=400,height=400,top=0,left=0,scrollbars=1');
+	if(faceimg!=null){
+		faceimg.onclick=function(){
+			window.open('face.php','face','width=400,height=400,top=0,left=0,scrollbars=1');
+		}
 	}
 	//表单验证，保证用户数据
 	var fm=document.getElementsByTagName('form')[0];
+	if (fm==undefined) return;
 	fm.onsubmit=function(){
 		//能用客户端验证的，尽量用客户端
 		//用户名验证

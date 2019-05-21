@@ -33,6 +33,7 @@ function _check_uniqid($_first_uniqid,$_end_uniqid){
  * @return [string] [过滤后的用户名]
  */
 function _check_username($_string,$_min_num,$_max_num){
+	global $_system;
 	//去掉无意义的空格
 	$_string=trim($_string);
 	//长度小于两位或者大于20位 不予通过
@@ -45,16 +46,14 @@ function _check_username($_string,$_min_num,$_max_num){
 		_alert_back('用户名不得包含敏感字符！');
 	}
 	//限制敏感用户名
-	$_mg[0]='蛤蛤蛤';
-	$_mg[1]='孙笑川';
-	$_mg[2]='带带大师兄';
+	$_mg=explode('|',$_system['string']);
 	//告诉用户哪些不能注册
 	foreach ($_mg as $value) {
 		$_mg_string.='['.$value.']'.'\n';
 	}
 	//采用绝对匹配，bug
 	if(in_array($_string,$_mg)){
-		_alert_back($_mg_string.'以上敏感用户名不得注册！');
+		_alert_back('敏感用户名不得注册！');
 	}
 	//转义返回，防止SQL注入
 	return _mysql_string($_string);

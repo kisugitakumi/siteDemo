@@ -27,7 +27,6 @@ if (isset($_GET['action']) && isset($_GET['active']) && $_GET['action'] == 'ok')
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--激活账户</title>
 <?php
 	require ROOT_PATH.'includes/title.inc.php';
 ?>

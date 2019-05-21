@@ -16,7 +16,6 @@ if(isset($_GET['num']) && isset($_GET['path'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--贴图选择</title>
 	<?php
 	require ROOT_PATH.'includes/title.inc.php';
 	?>

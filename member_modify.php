@@ -113,7 +113,6 @@ if(isset($_COOKIE['username'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--个人中心</title>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 <script type="text/javascript" src="js/code.js"></script>
 <script type="text/javascript" src="js/member_modify.js"></script>

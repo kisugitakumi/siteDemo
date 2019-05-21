@@ -42,7 +42,6 @@ $_result=_query("SELECT tg_id,tg_fromuser,tg_content,tg_date,tg_state FROM tg_me
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--短信列表</title>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 <script type="text/javascript" src="js/member_message.js"></script>
 </head>

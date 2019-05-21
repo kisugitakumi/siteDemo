@@ -77,7 +77,6 @@ if (isset($_GET['id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--修改帖子</title>
 <?php
 	require ROOT_PATH.'includes/title.inc.php';
 ?>

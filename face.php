@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--头像选择</title>
 	<?php
 	require ROOT_PATH.'includes/title.inc.php';
 	?>

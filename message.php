@@ -65,7 +65,6 @@ if (isset($_GET['id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--写短信</title>
 	<?php require ROOT_PATH.'includes/title.inc.php'; ?>
 	<script type="text/javascript" src="js/code.js"></script>
 	<script type="text/javascript" src="js/message.js"></script>

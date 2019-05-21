@@ -16,9 +16,10 @@ if ($_GET['action']=='post') {
 	//首先判断数据库中是否有这个用户存在
 	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
 	if (!!$_rows=_fetch_array("SELECT tg_uniqid,tg_post_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+		global $_system;
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
 		//验证是否在规定的时间外发帖,防止恶意发帖
-		_timed(time(),$_rows['tg_post_time'],60);
+		_timed(time(),$_rows['tg_post_time'],$_system['post']);
 		include ROOT_PATH.'includes/check.func.php';
 		//接收帖子内容
 		$_clean=array();
@@ -65,7 +66,6 @@ if ($_GET['action']=='post') {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>多用户留言系统--发表帖子</title>
 <?php
 	require ROOT_PATH.'includes/title.inc.php';
 ?>
