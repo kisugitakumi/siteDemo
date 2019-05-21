@@ -14,7 +14,6 @@ if ($_GET['action']=='rearticle') {
 	//首先判断数据库中是否有这个用户存在
 	//为防止cookies伪造，还要比对一下唯一标识符uniqid()
 	if (!!$_rows=_fetch_array("SELECT tg_uniqid,tg_article_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
-		
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
 		_timed(time(),$_rows['tg_article_time'],$_system['re']);
 		//接收数据
