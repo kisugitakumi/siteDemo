@@ -15,11 +15,11 @@
 }
 #login dl dt{
 	text-align: center;
-	padding: 10px ,0;
+	padding: 10px 0;
 	font-weight: bold;
 }
 #login dl dd{
-	padding: 5px 0;
+	padding: 5px 0 5px 70px;
 }
 #login dl dd input.text{
 	width: 200px;

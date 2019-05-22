@@ -23,14 +23,12 @@ if ($_GET['action']=='login') {
 	//数据库验证
 	if (!!$_rows=_fetch_array("SELECT tg_username,tg_uniqid,tg_level FROM tg_user WHERE tg_username='{$_clean['username']}' AND tg_password='{$_clean['password']}' AND tg_active='' LIMIT 1;")) {
 		//登录成功后记录登录信息
-		_query("UPDATE tg_user SET 
+		_query("UPDATE tg_user SET
 							tg_last_time=NOW(),
 							tg_last_ip='{$_SERVER["REMOTE_ADDR"]}',
 							tg_login_count=tg_login_count+1
 							WHERE tg_username='{$_rows['tg_username']}';
 							");
-		
-		//_session_destroy();
 		_setcookies($_rows['tg_username'],$_rows['tg_uniqid'],$_clean['time']);
 		if ($_rows['tg_level']==1) {
 			$_SESSION['admin']=$_rows['tg_username'];
@@ -39,7 +37,6 @@ if ($_GET['action']=='login') {
 		_location(null,'member.php');
 	}else{
 		_close();
-		//_session_destroy();
 		_location('用户名密码不正确！','login.php');
 	}
 }
@@ -65,7 +62,8 @@ if ($_GET['action']=='login') {
 			<?php if(!empty($_system['code'])){?>
 			<dd>验 &nbsp;证 码：<input type="text" name="code" class="text code"><img src="code.php" id="code"></dd>
 			<?php }?>
-			<dd><input type="submit" value="登录" class="button"> <input type="button" value="注册" id="location" class="button location"></dd>
+			<dd><input type="submit" value="登录" class="button">
+			<input type="button" value="注册" id="location" class="button location" onclick=window.location.href='register.php'></dd>
 		</dl>
 	</form>
 </div>
