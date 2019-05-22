@@ -22,6 +22,7 @@ if(!defined('IN_TG')){
 			}
 		?>
 		<li><a href="blog.php">博友</a></li>
+		<li><a href="photo.php">相册</a></li>
 		<li>风格</li>
 		<?php
 			if (isset($_COOKIE['username']) && isset($_SESSION['admin'])) {
