@@ -10,11 +10,14 @@ _manage_login();
 if ($_GET['action']=='adddir') {
 	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+		include 'includes/check.func.php';
 		//接收数据
 		$_clean=array();
-		$_clean['name']=$_POST['name'];
+		$_clean['name']=_check_dir_name($_POST['name'],2,20);
 		$_clean['type']=$_POST['type'];
-		$_clean['password']=sha1($_POST['password']);
+		if (!empty($_clean['type'])) {
+			$_clean['password']=_check_dir_password($_POST['password'],6);
+		}
 		$_clean['content']=$_POST['content'];
 		$_clean['dir']=time();
 		$_clean=_mysql_string($_clean);
