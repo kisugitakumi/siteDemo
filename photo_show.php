@@ -16,6 +16,8 @@ if (isset($_GET['id'])) {
 }else{
 	_alert_back('非法操作！');
 }
+$_filename='photo/1558523056/1558661937.jpg';
+$_percent=0.3;
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,7 +29,7 @@ if (isset($_GET['id'])) {
 
 <div id="photo">
 	<h2>图片展示</h2>
-	
+	<img src="thumb.php?filename=<?php echo $_filename?>&percent=<?php echo $_percent?>">
 	<p><a href="photo_add_img.php?id=<?php echo $_html['id']?>">上传图片</a></p>
 </div>
 

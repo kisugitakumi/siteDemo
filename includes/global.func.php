@@ -122,6 +122,44 @@ function _uniqid($_mysql_uniqid,$_cookie_uniqid){
 }
 
 /**
+ * 生成图片缩略图
+ * @param  [type] $_filename [description]
+ * @param  [type] $_percent  [description]
+ * @return [type]            [description]
+ */
+function _thumb($_filename,$_percent){
+	//获取文件后缀
+	$_n = explode('.',$_filename);
+	//生成png标头文件
+	//注意这里header()必须在任何实际输出之前调用！
+	ob_end_clean();
+	header('Content-type: image/png');
+	//获取文件信息，长和高
+	list($_width, $_height) = getimagesize($_filename);
+	//生成缩微的长和高
+	$_new_width = $_width * $_percent;
+	$_new_height = $_height * $_percent;
+	//创建一个以某个百分比新长度的画布
+	$_new_image=imagecreatetruecolor($_new_width, $_new_height);
+	//按照已有的图片创建一个画布
+	switch ($_n[1]) {
+		case 'jpg' : $_image = imagecreatefromjpeg($_filename);
+			break;
+		case 'gif' : $_image = imagecreatefromgif($_filename);
+			break;
+		case 'png' : $_image = imagecreatefrompng($_filename);
+			break;
+	}
+	//将原图采集后重新复制到新图上，就缩略了
+	imagecopyresampled($_new_image, $_image, 0, 0, 0, 0, $_new_width, $_new_height, $_width, $_height);
+	//生成png
+	imagepng($_new_image);
+	//销毁
+	imagedestroy($_new_image);
+	imagedestroy($_image);
+}
+
+/**
  * 读取xml文件的函数
  * @param  [type] $_xmlfile [description]
  * @return [type]           [description]
