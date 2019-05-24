@@ -183,6 +183,7 @@ if (isset($_GET['id'])) {
 			$_html=_html($_html);
 			
 			if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url,tg_switch,tg_autograph FROM tg_user WHERE tg_username='{$_html['username']}';")){
+				//提取用户信息
 				$_html['userid']=$_rows['tg_id'];
 				$_html['sex']=$_rows['tg_sex'];
 				$_html['face']=$_rows['tg_face'];
@@ -248,8 +249,8 @@ if (isset($_GET['id'])) {
 		_paging(1);
 	?>
 	<?php 
-		if (isset($_COOKIE['username'])) {?>
-	<!-- <p class="line"></p> -->
+		if (isset($_COOKIE['username'])) {
+	?>
 	<a name="ree"></a>
 	<form method="post" action="?action=rearticle">
 		<input type="hidden" name="reid" value="<?php echo $_html['reid']?>">

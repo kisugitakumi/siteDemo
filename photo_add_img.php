@@ -26,6 +26,7 @@ if ($_GET['action']=='addimg') {
 										tg_url,
 										tg_content,
 										tg_sid,
+										tg_username,
 										tg_date
 									) 
 							VALUES 
@@ -34,6 +35,7 @@ if ($_GET['action']=='addimg') {
 										'{$_clean['url']}',
 										'{$_clean['content']}',
 										'{$_clean['sid']}',
+										'{$_COOKIE['username']}',
 										NOW()
 									)
 		;");
