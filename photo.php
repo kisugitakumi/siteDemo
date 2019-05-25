@@ -41,10 +41,12 @@ $_result=_query("SELECT tg_id,tg_name,tg_type,tg_face FROM tg_dir ORDER BY tg_da
 			}else{
 				$_html['face_html']='<img src="'.$_html['face'].'" alt="'.$_html['name'].'">';
 			}
+			//统计相册里的图片数量
+			$_html['photo']=_fetch_array("SELECT COUNT(*) AS count FROM tg_photo WHERE tg_sid='{$_html['id']}';");
 	?>
 	<dl>
 		<dt><a href="photo_show?id=<?php echo $_html['id']?>"><?php echo $_html['face_html']?></a></dt>
-		<dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name']?></a> <?php echo $_html['type_html']?></dd>
+		<dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name']?>(共<?php echo $_html['photo']['count']?>张图片)<?php echo $_html['type_html']?></a></dd>
 		<?php if(isset($_SESSION['admin']) && isset($_COOKIE['username'])){?>
 		<dd>[<a href="photo_modify_dir.php?id=<?php echo $_html['id']?>">修改</a>] [删除]</dd>
 		<?php }?>

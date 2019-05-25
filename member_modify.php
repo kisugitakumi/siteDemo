@@ -88,15 +88,24 @@ if(isset($_COOKIE['username'])){
 		}elseif($_html['sex']=='女'){
 			$_html['sex_html']='<input type="radio" name="sex" value="男"/>男<input type="radio" name="sex" value="女" checked="checked"/>女';
 		}
-		//头像选择，有点bug
+		//头像选择
 		$_html['face_html']='<select class="face" name="face">';
 		foreach (range(1,9) as $_num) {
-			$_html['face_html'].='<option value="face/m'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
+			if ($_html['face']=='face/m0'.$_num.'.gif') {
+				$_html['face_html'].='<option value="face/m'.$_num.'.gif" selected="selected">face/m0'.$_num.'.gif</option>';
+			}else{
+				$_html['face_html'].='<option value="face/m'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
+			}
 		}
 		foreach (range(10,64) as $_num) {
-			$_html['face_html'].='<option value="face/m'.$_num.'.gif">face/m'.$_num.'.gif</option>';
+			if ($_html['face']=='face/m'.$_num.'.gif') {
+				$_html['face_html'].='<option value="face/m'.$_num.'.gif" selected="selected">face/m'.$_num.'.gif</option>';
+			}else{
+				$_html['face_html'].='<option value="face/m'.$_num.'.gif">face/m'.$_num.'.gif</option>';
+			}
 		}
 		$_html['face_html'].='</select>';
+		
 		//签名开关
 		if($_html['switch']==1){
 			$_html['switch_html']='<input type="radio" checked="checked" name="switch" value="1">启用<input type="radio" name="switch" value="0">禁用';

@@ -49,11 +49,12 @@ if ($_GET['action']=='rephoto') {
 }
 //取值
 if (isset($_GET['id'])) {
-	if(!!$_rows=_fetch_array("SELECT tg_id,tg_name,tg_url,tg_username,tg_readcount,tg_commentcount,tg_date,tg_content FROM tg_photo WHERE tg_id='{$_GET['id']}' LIMIT 1;")){
+	if(!!$_rows=_fetch_array("SELECT tg_id,tg_name,tg_url,tg_username,tg_readcount,tg_commentcount,tg_date,tg_content,tg_sid FROM tg_photo WHERE tg_id='{$_GET['id']}' LIMIT 1;")){
 		//累积浏览量
 		_query("UPDATE tg_photo SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}';");
 		$_html=array();
 		$_html['id']=$_rows['tg_id'];
+		$_html['sid']=$_rows['tg_sid'];
 		$_html['name']=$_rows['tg_name'];
 		$_html['url']=$_rows['tg_url'];
 		$_html['username']=$_rows['tg_username'];
@@ -73,6 +74,25 @@ if (isset($_GET['id'])) {
 		//从数据库提取数据获取结果集
 		//每次从新取结果集，而不是从新执行SQL语句
 		$_result=_query("SELECT tg_username,tg_title,tg_content,tg_date FROM tg_photo_comment WHERE tg_sid='{$_html['id']}' ORDER BY tg_date ASC LIMIT $_pagenum,$_pagesize");
+
+
+		//取得比自己大的ID中最小的那一个，即是上一张图片
+		$_html['preid']=_fetch_array("SELECT MIN(tg_id) AS id FROM tg_photo WHERE tg_sid='{$_html['sid']}' AND tg_id>'{$_html['id']}' LIMIT 1;");
+
+		if (!empty($_html['preid']['id'])) {
+			$_html['pre']='<a href="photo_detail.php?id='.$_html['preid']['id'].'#pre">上一张</a>';
+		}else{
+			$_html['pre']='<span>到头了！</span>';
+		}
+
+		//取得比自己小的ID中最大的那一个，即是下一张图片
+		$_html['nextid']=_fetch_array("SELECT MAX(tg_id) AS id FROM tg_photo WHERE tg_sid='{$_html['sid']}' AND tg_id<'{$_html['id']}' LIMIT 1;");
+
+		if (!empty($_html['nextid']['id'])) {
+			$_html['next']='<a href="photo_detail.php?id='.$_html['nextid']['id'].'#next">下一张</a>';
+		}else{
+			$_html['next']='<span>到底了！</span>';
+		}
 	}else{
 		_alert_back('不存在此图片！');
 	}
@@ -92,9 +112,12 @@ if (isset($_GET['id'])) {
 
 <div id="photo">
 	<h2>图片详情--<?php echo $_html['name']?></h2>
+	<!-- 锚点 -->
+	<a name="pre"></a><a name="next"></a>
 	<dl class="detail">
 		<dd class="name"><?php echo $_html['name']?></dd>
-		<dt><img src="<?php echo $_html['url']?>"></dt>
+		<dt><?php echo $_html['pre']?><img src="<?php echo $_html['url']?>"><?php echo $_html['next']?></dt>
+		<dd>[<a href="photo_show.php?id=<?php echo $_html['sid']?>">返回列表</a>]</dd>
 		<dd>评论量(<strong><?php echo $_html['commentcount']?></strong>) 浏览量(<strong><?php echo $_html['readcount']?></strong>) 上传者:<?php echo $_html['username']?> 上传于:<?php echo $_html['date']?></dd>
 		<dd>简介:<?php echo $_html['content']?></dd>
 	</dl>
