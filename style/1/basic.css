@@ -31,6 +31,7 @@ h2{
 	font-size: 12px;
 	width: 210px;
 	height: 39px;
+	/*logo图片*/
 	background: url(../../images/logo1.jpg) no-repeat;
 	margin: 50px 0 0 50px;
 }

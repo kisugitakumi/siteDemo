@@ -12,6 +12,8 @@ $_html=_html(_get_xml('new.xml'));
 global $_pagenum,$_pagesize,$_system;
 _page("SELECT tg_id FROM tg_article WHERE tg_reid=0;",$_system['article']);
 $_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM tg_article WHERE tg_reid=0 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
+//取得最新图片：找到时间最后的图片，并且是公开的，注意这个sql语句使用了嵌套
+$_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_photo WHERE tg_sid IN (SELECT tg_id FROM tg_dir WHERE tg_type=0) ORDER BY tg_date DESC LIMIT 1;");
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,7 +65,8 @@ $_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM
 </div>
 
 <div id="pics">
-	<h2>最新图片</h2>
+	<h2>最新图片--<?php echo $_photo['name']?></h2>
+	<a href="photo_detail.php?id=<?php echo $_photo['id']?>"><img src="thumb.php?filename=<?php echo $_photo['url']?>&percent=<?php echo 0.15?>" alt="<?php echo $_photo['name']?>"></a>
 </div>
 <?php
 	require ROOT_PATH.'includes/footer.inc.php';

@@ -50,6 +50,19 @@ if ($_GET['action']=='rephoto') {
 //取值
 if (isset($_GET['id'])) {
 	if(!!$_rows=_fetch_array("SELECT tg_id,tg_name,tg_url,tg_username,tg_readcount,tg_commentcount,tg_date,tg_content,tg_sid FROM tg_photo WHERE tg_id='{$_GET['id']}' LIMIT 1;")){
+		//防止加密相册图片穿插访问
+		//可以先取得图片的目录sid，然后再判断这个目录是否是加密的，如果是加密的，再判断是否有对应的cookies存在，并且等于相应的值，管理员不受此限制
+		if(!isset($_SESSION['admin'])){
+			if (!!$_dirs=_fetch_array("SELECT tg_type,tg_id,tg_name FROM tg_dir WHERE tg_id='{$_rows['tg_sid']}'")) {
+				if (!empty($_dirs['tg_type']) && $_COOKIE['photo'.$_dirs['tg_id']]!=$_dirs['tg_name']) {
+					_alert_back('非法操作');
+				}
+			}else{
+				_alert_back('相册目录表出错，请联系系统管理员');
+			}
+		}
+		
+
 		//累积浏览量
 		_query("UPDATE tg_photo SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}';");
 		$_html=array();
