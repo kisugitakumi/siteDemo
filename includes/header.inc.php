@@ -5,7 +5,7 @@ if(!defined('IN_TG')){
 }
 ?>
 <div id="header">
-	<h1><a href='index.php'>瓢城Web俱乐部多用户留言系统</a></h1>
+	<h1><a href='index.php'>用户留言系统</a></h1>
 	<ul>
 		<li><a href="index.php">首页</a></li>
 		
