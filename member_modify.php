@@ -92,9 +92,9 @@ if(isset($_COOKIE['username'])){
 		$_html['face_html']='<select class="face" name="face">';
 		foreach (range(1,9) as $_num) {
 			if ($_html['face']=='face/m0'.$_num.'.gif') {
-				$_html['face_html'].='<option value="face/m'.$_num.'.gif" selected="selected">face/m0'.$_num.'.gif</option>';
+				$_html['face_html'].='<option value="face/m0'.$_num.'.gif" selected="selected">face/m0'.$_num.'.gif</option>';
 			}else{
-				$_html['face_html'].='<option value="face/m'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
+				$_html['face_html'].='<option value="face/m0'.$_num.'.gif">face/m0'.$_num.'.gif</option>';
 			}
 		}
 		foreach (range(10,64) as $_num) {
