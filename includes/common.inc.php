@@ -20,7 +20,7 @@ require ROOT_PATH.'includes/mysql.func.php';
 define('START_TIME', _runtime());
 //或者写成超级全局变量$global['start_time']=_runtime();
 //数据库连接所需常量
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'localhost:3306');
 define('DB_USER', 'root');
 define('DB_PWD', 6821663);
 define('DB_NAME', 'guest');

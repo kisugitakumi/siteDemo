@@ -4,6 +4,46 @@ define('IN_TG', 'true');
 define('SCRIPT', 'photo_show');
 //引入公共文件commom.inc.php
 require dirname(__FILE__).'/includes/common.inc.php';
+//删除图片
+if ($_GET['action']=='delete' && isset($_GET['id'])) {
+	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+		//取得图片的发布者
+		if (!!$_rows=_fetch_array("SELECT tg_username,tg_url,tg_id,tg_sid FROM tg_photo WHERE tg_id='{$_GET['id']}' LIMIT 1;")) {
+			$_html=array();
+			$_html['id']=$_rows['tg_id'];
+			$_html['sid']=$_rows['tg_sid'];
+			$_html['username']=$_rows['tg_username'];
+			$_html['url']=$_rows['tg_url'];
+			$_html=_html($_html);
+
+			//判断删除图片的用户是否合法
+			if ($_rows['tg_username']==$_COOKIE['username'] || isset($_SESSION['admin'])) {
+				//首先删除图片的数据库信息
+				_query("DELETE FROM tg_photo WHERE tg_id='{$_html['id']}';");
+				if (_affected_rows()==1) {
+					//再删除图片物理地址
+					if (file_exists($_html['url'])) {
+						unlink($_html['url']);
+					}else{
+						_alert_back('磁盘里已不存在此图片');
+					}
+					_close();
+					_location('图片删除成功！','photo_show.php?id='.$_html['sid']);
+				}else{
+					_close();
+					_alert_back('图片删除失败！');
+				}
+			}else{
+				_alert_back('非法操作');
+			}
+		}else{
+			_alert_back('不存在此图片');
+		}
+	}else{
+		_alert_back('非法登录');
+	}
+}
 //取值
 if (isset($_GET['id'])) {
 	if(!!$_rows=_fetch_array("SELECT tg_id,tg_name,tg_type FROM tg_dir WHERE tg_id='{$_GET['id']}' LIMIT 1;")){
@@ -63,6 +103,11 @@ $_result=_query("SELECT tg_id,tg_username,tg_name,tg_url,tg_readcount,tg_comment
 		<dt><a href="photo_detail.php?id=<?php echo $_html['id']?>"><img src="thumb.php?filename=<?php echo $_html['url']?>&percent=<?php echo $_percent?>"></a></dt>
 		<dd><a href="photo_detail.php?id=<?php echo $_html['id']?>"><?php echo $_html['name']?></a></dd>
 		<dd>阅(<strong><?php echo $_html['readcount']?></strong>) 评(<strong><?php echo $_html['commentcount']?></strong>) 上传者：<?php echo $_html['username']?></dd>
+		<?php
+			if ($_html['username']==$_COOKIE['username'] || isset($_SESSION['admin'])) {
+		?>
+		<dd>[<a href="photo_show.php?action=delete&id=<?php echo $_html['id']?>">删除</a>]</dd>
+		<?php }?>
 	</dl>
 	<?php }
 		_free_result($_result);

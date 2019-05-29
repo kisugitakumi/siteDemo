@@ -1,6 +1,30 @@
 <!-- 公共函数文件 -->
 <?php
 /**
+ * 删除非空目录
+ * @param  [type] $dirName [description]
+ * @return [type]          [description]
+ */
+function _remove_Dir($dirName)
+{
+    if(! is_dir($dirName))
+    {
+        return false;
+    }
+    $handle = @opendir($dirName);
+    while(($file = @readdir($handle)) !== false)
+    {
+        if($file != '.' && $file != '..')
+        {
+            $dir = $dirName . '/' . $file;
+            is_dir($dir) ? _remove_Dir($dir) : @unlink($dir);
+        }
+    }
+    closedir($handle);
+    return rmdir($dirName) ;
+}
+
+/**
  * 必须是管理员才能进入manage.php网页
  */
 function _manage_login(){
