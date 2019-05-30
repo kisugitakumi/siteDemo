@@ -4,10 +4,21 @@
 	min-height: 800px;
 	border: 2px solid #ccc;
 	font-size: 12px;
+	position: relative;
 }
 #article h2{
 	text-indent: 0;
 	text-align: center;
+}
+#article img.nice{
+	position: absolute;
+	top: -30px;
+	left: 600px;
+}
+#article img.hot{
+	position: absolute;
+	top: -30px;
+	left: 700px;
 }
 #article #subject{
 

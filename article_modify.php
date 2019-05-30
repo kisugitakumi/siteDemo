@@ -64,9 +64,12 @@ if (isset($_GET['id'])) {
 			$_html=_html($_html);
 
 			//判断权限
-			if ($_COOKIE['username']!=$_html['username']) {
-				_alert_back('你没有权限修改此帖子！');
+			if(!isset($_SESSION['admin'])){
+				if ($_COOKIE['username']!=$_html['username']) {
+					_alert_back('你没有权限修改此帖子！');
+				}
 			}
+			
 		}else{
 			_alert_back('不存在此帖子！');
 		}
