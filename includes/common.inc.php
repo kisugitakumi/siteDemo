@@ -48,6 +48,11 @@ if (!!$_rows=_fetch_array("SELECT tg_webname,tg_article,tg_blog,tg_photo,tg_skin
 	$_system['register']=$_rows['tg_register'];
 	$_system['string']=$_rows['tg_string'];
 	$_system=_html($_system);
+
+	//如果有skin的cookie那么就替代系统数据库的皮肤
+	if ($_COOKIE['skin']) {
+		$_system['skin']=$_COOKIE['skin'];
+	}
 }else{
 	exit('系统表异常，请管理员检查！');
 }

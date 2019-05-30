@@ -4,6 +4,7 @@ if(!defined('IN_TG')){
 	exit('Access Denied!');	
 }
 ?>
+<script type="text/javascript" src="js/skin.js"></script>
 <div id="header">
 	<h1><a href='index.php'>用户留言系统</a></h1>
 	<ul>
@@ -23,7 +24,14 @@ if(!defined('IN_TG')){
 		?>
 		<li><a href="blog.php">博友</a></li>
 		<li><a href="photo.php">相册</a></li>
-		<li>风格</li>
+		<li class="skin" onmouseover="inskin()" onmouseout="outskin()">
+			<a href="javascript:;">风格</a>
+			<dl id="skin">
+				<dd><a href="skin.php?id=1">1.一号皮肤</a></dd>
+				<dd><a href="skin.php?id=2">2.二号皮肤</a></dd>
+				<dd><a href="skin.php?id=3">3.三号皮肤</a></dd>
+			</dl>
+		</li>
 		<?php
 			if (isset($_COOKIE['username']) && isset($_SESSION['admin'])) {
 				echo '<li><a href="manage.php" class="manage">管理</a> </li>';

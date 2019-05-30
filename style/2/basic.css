@@ -6,7 +6,7 @@
 body{
 	width: 960px;
 	margin: 0 auto;
-	background: #fff;
+	background: #eee;
 	font-size: 14px;
 	/*自代码*/
 	/*background: url('../../bg1.jpg') repeat;*/
@@ -16,7 +16,7 @@ ul{
 }
 h2{
 	font-size: 14px;
-	background:#eee;
+	background:orange;
 	height: 25px;
 	line-height: 25px;
 	text-indent: 10px;
