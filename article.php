@@ -66,7 +66,6 @@ if ($_GET['action']=='rearticle') {
 			_query("UPDATE tg_article SET tg_commentcount=tg_commentcount+1 WHERE tg_reid=0 AND tg_id='{$_clean['reid']}';");
 			//关闭连接和session
 			_close();
-			//_session_destroy();
 			//成功注册则跳转
 			_location('回帖成功！','article.php?id='.$_clean['reid']);
 		}else{

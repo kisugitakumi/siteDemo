@@ -14,8 +14,27 @@ if ($_GET['action']='del' && isset($_GET['id'])) {
 		if (!!$_rows2=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
 				_uniqid($_rows2['tg_uniqid'],$_COOKIE['uniqid']);
 				//验证成功后，删除单个会员
+				//图片评论数相应减少
+				_query("CREATE table temp (select tg_sid FROM tg_photo_comment WHERE tg_username='{$_GET['username']}');");
+				$_result=_query("SELECT tg_sid FROM temp;");
+				$_html=array();
+				while(!!$_rows3=_fetch_array_list($_result)){
+					$_html['sid']=$_rows3['tg_sid'];
+					_query("UPDATE tg_photo SET tg_commentcount=tg_commentcount-1 WHERE tg_id='{$_html['sid']}'");
+				}
+				_query("DROP table temp;");
+				//文章评论数相应减少
+				_query("CREATE table temp (select tg_reid FROM tg_article WHERE tg_username='{$_GET['username']}');");
+				$_result=_query("SELECT tg_reid FROM temp;");
+				$_html=array();
+				while(!!$_rows4=_fetch_array_list($_result)){
+					$_html['reid']=$_rows4['tg_reid'];
+					_query("UPDATE tg_article SET tg_commentcount=tg_commentcount-1 WHERE tg_id='{$_html['reid']}'");
+				}
+				_query("DROP table temp;");
 				_query("DELETE FROM tg_user WHERE tg_id='{$_GET['id']}' LIMIT 1;");
-				if (_affected_rows()==1) {
+				//删除该会员的所有信息(文章、回复、上传图片、图片评论等)，通过数据库外键级联删除实现
+				if (_affected_rows()>=1) {
 					//关闭连接
 					_close();
 					//成功删除则跳转
@@ -62,7 +81,7 @@ $_result=_query("SELECT tg_id,tg_username,tg_reg_time,tg_email FROM tg_user ORDE
 				if ($_COOKIE['username']==$_html['username']) {
 					$_html['manage_member_html']='不能删除自己';
 				}else{
-					$_html['manage_member_html']='<a href="manage_member.php?action=del&id='.$_html['id'].'">删除会员</a>';
+					$_html['manage_member_html']='<a href="manage_member.php?action=del&id='.$_html['id'].'&username='.$_html['username'].'">删除会员</a>';
 				}
 			?>
 			<tr><td><?php echo $_html['id']?></td><td><?php echo $_html['username']?></td><td><?php echo $_html['email']?></td><td><?php echo $_html['reg_time']?></td><td><?php echo $_html['manage_member_html']?></td></tr>
