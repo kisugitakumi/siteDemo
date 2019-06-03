@@ -14,7 +14,6 @@ if (!isset($_COOKIE['username'])) {
 if ($_GET['action']=='delete' && isset($_POST['ids'])) {
 	$_clean=array();
 	$_clean['ids']=_mysql_string(implode(',', $_POST['ids']));
-	print_r($_clean['ids']);
 	if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
 		_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
 		_query("DELETE FROM tg_message WHERE tg_id IN ({$_clean['ids']})");

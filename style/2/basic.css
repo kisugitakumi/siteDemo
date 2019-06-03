@@ -28,20 +28,15 @@ h2{
 	margin: 10px 0;/*上右间隙*/
 }
 #header h1{
-	font-size: 12px;
-	width: 269px;
-	height: 55px;
-	/*logo图片*/
-	background: url(../../images/logo.png) no-repeat;
-	margin: 50px 0 0 50px;
+	width: 426px;
+	height: 74px;
 }
-#header h1 a{
-	width: 269px;
-	height: 55px;
-	display: block;
-	text-indent: -9999px;
+#header h1 p{
+	font-size: 50px;
+	margin: 40px 0 100px 50px;
 }
 #header ul{
+	margin: -15px 0 0 0;
 	text-align:right;
 	padding: 20px 50px 0 0;
 }

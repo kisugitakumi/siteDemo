@@ -23,7 +23,7 @@ define('START_TIME', _runtime());
 define('DB_HOST', 'localhost:3306');
 define('DB_USER', 'root');
 define('DB_PWD', 6821663);
-define('DB_NAME', 'guest');
+define('DB_NAME', 'blog');
 _connect();//连接数据库
 _select_db();//选择数据库
 _set_names();//设置字符集
