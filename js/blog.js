@@ -2,6 +2,7 @@ window.onload=function(){
 	var message=document.getElementsByName('message');
 	var friend=document.getElementsByName('friend');
 	var flower=document.getElementsByName('flower');
+	var guest=document.getElementsByName('guest');
 	for (var i=0;i<message.length;i++){
 		message[i].onclick=function(){
 			//打开发送短信界面
@@ -18,6 +19,12 @@ window.onload=function(){
 		flower[i].onclick=function(){
 			//打开送花界面
 			centerWindow('flower.php?id='+this.title,'flower',340,500);
+		}
+	};
+	for (var i=0;i<guest.length;i++){
+		guest[i].onclick=function(){
+			//打开留言界面
+			centerWindow('guest.php?id='+this.title,'guest',340,500);
 		}
 	};
 };

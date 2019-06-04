@@ -6,7 +6,7 @@ if(!defined('IN_TG')){
 ?>
 <script type="text/javascript" src="js/skin.js"></script>
 <div id="header">
-	<h1><p>多用户博客网站</p></h1>
+	<h1><p>多用户博客系统</p></h1>
 	<ul>
 		<li><a href="index.php">首页</a></li>
 		

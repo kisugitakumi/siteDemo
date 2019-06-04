@@ -22,6 +22,7 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 	require ROOT_PATH.'includes/title.inc.php';
 ?>
 <script type="text/javascript" src="js/blog.js"></script>
+<script type="text/javascript" src="js/sidebar.js"></script>
 </head>
 <body>
 

@@ -50,7 +50,7 @@ $_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_username FR
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
 <div id="member">
-<?php require 'includes/member.inc.php'; ?>
+<?php require 'includes/manage.inc.php'; ?>
 	<div id="member_main">
 		<h2>文章管理中心</h2>
 		<form method="post" action="?action=delete">

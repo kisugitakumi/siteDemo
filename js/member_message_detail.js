@@ -5,7 +5,7 @@ window.onload=function(){
 		history.back();
 	};
 	del.onclick=function(){
-		if(confirm('确定删除此条短信？')){
+		if(confirm('确定删除此条数据？')){
 			location.href='?action=delete&id='+this.name;
 		}
 	};
