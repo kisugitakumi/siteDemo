@@ -130,7 +130,7 @@ if (isset($_GET['id'])) {
 	<dl class="detail">
 		<dd class="name"><?php echo $_html['name']?></dd>
 		<dt><?php echo $_html['pre']?><img src="<?php echo $_html['url']?>"><?php echo $_html['next']?></dt>
-		<dd>[<a href="photo_show.php?id=<?php echo $_html['sid']?>">返回列表</a>]</dd>
+		<dd>[<a href="photo_show.php?id=<?php echo $_html['sid']?>">返回列表</a>]  [<a href="member.php">返回个人中心</a>]</dd>
 		<dd>评论量(<strong><?php echo $_html['commentcount']?></strong>) 浏览量(<strong><?php echo $_html['readcount']?></strong>) 上传者:<?php echo $_html['username']?> 上传于:<?php echo $_html['date']?></dd>
 		<dd>简介:<?php echo $_html['content']?></dd>
 	</dl>
@@ -153,8 +153,6 @@ if (isset($_GET['id'])) {
 			$_html['switch']=$_rows['tg_switch'];
 			$_html['autograph']=$_rows['tg_autograph'];
 			$_html=_html($_html);
-		}else{
-			//这个用户可能已被删除
 		}
 	?>
 	<p class="line"></p>

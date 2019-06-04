@@ -7,7 +7,7 @@ require dirname(__FILE__).'/includes/common.inc.php';
 //是否正常登陆
 if(isset($_COOKIE['username'])){
 	//获取数据
-	$_rows=_fetch_array("SELECT tg_username,tg_sex,tg_face,tg_email,tg_url,tg_qq,tg_level,tg_reg_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1;");
+	$_rows=_fetch_array("SELECT tg_username,tg_sex,tg_face,tg_email,tg_url,tg_qq,tg_level,tg_reg_time,tg_autograph FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1;");
 	if($_rows){
 		$_html=array();
 		$_html['username']=$_rows['tg_username'];
@@ -17,6 +17,7 @@ if(isset($_COOKIE['username'])){
 		$_html['url']=$_rows['tg_url'];
 		$_html['qq']=$_rows['tg_qq'];
 		$_html['reg_time']=$_rows['tg_reg_time'];
+		$_html['autograph']=$_rows['tg_autograph'];
 		switch ($_rows['tg_level']) {
 			case 0:
 				$_html['level']='普通会员';
@@ -56,6 +57,7 @@ if(isset($_COOKIE['username'])){
 			<dd>主  页：<?php echo $_html['url']?></dd>
 			<dd>Q    Q：<?php echo $_html['qq']?></dd>
 			<dd>注册时间：<?php echo $_html['reg_time']?></dd>
+			<dd>个人签名：<?php echo _ubb($_html['autograph'])?></dd>
 			<dd>身  份：<?php echo $_html['level']?></dd>
 		</dl>
 	</div>

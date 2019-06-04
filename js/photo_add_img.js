@@ -1,7 +1,7 @@
 window.onload=function(){
 	var up=document.getElementById('up');
 	up.onclick=function(){
-		centerWindow('upimg.php?dir='+this.title,'up','200','400');
+		centerWindow('upimg.php?dir='+this.title,'up','200','500');
 	};
 
 	var fm=document.getElementsByTagName('form')[0];
