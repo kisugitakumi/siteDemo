@@ -32,6 +32,18 @@ function _manage_login(){
 		_alert_back('非法登录!');
 	}
 }
+
+/**
+ * 判断禁言状态函数
+ * @return boolean [description]
+ */
+function _is_forbid(){
+	$_rows=_fetch_array("SELECT tg_state FROM tg_user WHERE tg_username='{$_COOKIE['username']}';");
+	$_html=array();
+	$_html['state']=$_rows['tg_state'];
+	return $_html['state'];
+}
+
 /**
  * 验证是否在规定的时间外发帖,防止恶意发帖
  * @param  [type] $_nowtime [description]

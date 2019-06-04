@@ -136,8 +136,6 @@ if (isset($_GET['id'])) {
 			//每次从新取结果集，而不是从新执行SQL语句
 			$_result=_query("SELECT tg_username,tg_type,tg_title,tg_content,tg_date FROM tg_article WHERE tg_reid='{$_html['reid']}' ORDER BY tg_date ASC LIMIT $_pagenum,$_pagesize");
 
-		}else{
-			//这个用户已被删除（未完善）
 		}
 	}else{
 		_alert_back('不存在这个主题！');
@@ -242,6 +240,7 @@ if (isset($_GET['id'])) {
 				$_html['re']='<span>[<a href="#ree" name="re" title="回复'.($_i+(($_page-1)*$_pagesize)).'楼的'.$_html['username'].'">回复</a>]</span>';
 			}
 	?>
+	<!-- 回帖界面 -->
 	<div class="re">
 		<dl>
 			<dd class="user"><?php echo $_html['username_html']?>(<?php echo $_html['sex']?>)</dd>
@@ -280,8 +279,9 @@ if (isset($_GET['id'])) {
 		_paging(1);
 	?>
 	<?php 
-		if (isset($_COOKIE['username'])) {
+		if (isset($_COOKIE['username']) && _is_forbid()) {
 	?>
+	<!-- 回帖界面 -->
 	<a name="ree"></a>
 	<form method="post" action="?action=rearticle">
 		<input type="hidden" name="reid" value="<?php echo $_html['reid']?>">
@@ -299,7 +299,9 @@ if (isset($_GET['id'])) {
 			
 		</dl>
 	</form>
-	<?php } ?>
+	<?php }elseif(!(_is_forbid())){ ?>
+		<p style="font-size: 20px;text-align: center;margin-bottom: 30px;">你已被管理员禁言，暂时不能回复文章！</p>
+	<?php }?>
 </div>
 
 <?php require ROOT_PATH.'includes/footer.inc.php'; ?>

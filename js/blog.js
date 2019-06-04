@@ -16,7 +16,7 @@ window.onload=function(){
 	};
 	for (var i=0;i<flower.length;i++){
 		flower[i].onclick=function(){
-			//打开添加好友界面
+			//打开送花界面
 			centerWindow('flower.php?id='+this.title,'flower',340,500);
 		}
 	};

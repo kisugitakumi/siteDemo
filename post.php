@@ -9,6 +9,10 @@ require dirname(__FILE__).'/includes/common.inc.php';
 if (!isset($_COOKIE['username'])) {
 	_location('登陆后才可以发表帖子','login.php');
 }
+//判断是否禁言
+if(!(_is_forbid())){
+	_alert_back("你已被管理员禁言，暂时不能发表文章！");
+}
 //将帖子写入数据库
 if ($_GET['action']=='post') {
 	//判断验证码
@@ -47,7 +51,6 @@ if ($_GET['action']=='post') {
 		if (_affected_rows()==1) {
 			//获取刚刚新增的ID
 			$_clean['id']=_insert_id();
-			//setcookie('post_time',time());
 			$_clean['time']=time();
 			_query("UPDATE tg_user SET tg_post_time='{$_clean['time']}' WHERE tg_username ='{$_COOKIE['username']}';");
 			//关闭连接和session
