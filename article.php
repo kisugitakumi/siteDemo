@@ -299,10 +299,12 @@ if (isset($_GET['id'])) {
 			</dd>
 			
 			<dd><?php if(!empty($_system['code'])){?>验 &nbsp;证 码：
-			<input type="text" name="code" class="text yzm"><img src="code.php" id="code"><?php }?><input type="submit" class="submit" value="发表帖子"></dd>
+			<input type="text" name="code" class="text yzm"><img src="code.php" id="code"><?php }?><input type="submit" class="submit" value="发表回复"></dd>
 			
 		</dl>
 	</form>
+	<?php }elseif(!isset($_COOKIE['username'])){?>
+		<p style="font-size: 20px;text-align: center;margin-bottom: 30px;">登陆后才可回复文章！</p>
 	<?php }elseif(!(_is_forbid())){ ?>
 		<p style="font-size: 20px;text-align: center;margin-bottom: 30px;">你已被管理员禁言，暂时不能回复文章！</p>
 	<?php }?>

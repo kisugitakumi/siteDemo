@@ -9,7 +9,7 @@ body{
 	background: #ffc;
 	font-size: 14px;
 	/*自代码*/
-	background: url('../../bg3.png') repeat;
+	background: url('bg3.png') repeat;
 }
 ul{
 	list-style-type: none;
