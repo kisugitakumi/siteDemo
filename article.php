@@ -80,7 +80,7 @@ if ($_GET['action']=='rearticle') {
 //读出数据
 if (isset($_GET['id'])) {
 	//提取出数据库中的帖子ID
-	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date,tg_last_modify_date,tg_nice FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}';")){
+	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date,tg_last_modify_date,tg_nice,tg_hot FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}';")){
 		//累积阅读量
 		_query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}';");
 		$_html=array();
@@ -92,9 +92,13 @@ if (isset($_GET['id'])) {
 		$_html['readcount']=$_rows['tg_readcount'];
 		$_html['commemtcount']=$_rows['tg_commentcount'];
 		$_html['nice']=$_rows['tg_nice'];
+		$_html['hot']=$_rows['tg_hot'];
 		$_html['date']=$_rows['tg_date'];
 		$_html['last_modify_date']=$_rows['tg_last_modify_date'];
-		
+		//判断是否热门
+		if ($_html['readcount']>=200 && $_html['commemtcount']>=10 && empty($_html['hot'])) {
+			_query("UPDATE tg_article SET tg_hot=1 WHERE tg_id='{$_GET['id']}';");
+		}
 		//拿出用户名查找发表帖子的用户信息
 		if(!!$_rows=_fetch_array("SELECT tg_id,tg_sex,tg_face,tg_email,tg_url,tg_switch,tg_autograph FROM tg_user WHERE tg_username='{$_html['username_subject']}';")){
 			$_html['userid']=$_rows['tg_id'];
