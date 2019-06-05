@@ -132,6 +132,7 @@ window.onload=function(){
 	var message=document.getElementsByName('message');
 	var friend=document.getElementsByName('friend');
 	var flower=document.getElementsByName('flower');
+	var guest=document.getElementsByName('guest');
 	var re=document.getElementsByName('re');
 
 	for (var i=0;i<re.length;i++){
@@ -154,8 +155,14 @@ window.onload=function(){
 	}
 	for (var i=0;i<flower.length;i++){
 		flower[i].onclick=function(){
-			//打开添加好友界面
+			//打开送花界面
 			centerWindow('flower.php?id='+this.title,'flower',340,500);
+		};
+	}
+	for (var i=0;i<guest.length;i++){
+		guest[i].onclick=function(){
+			//打开写留言界面
+			centerWindow('guest.php?id='+this.title,'guest',340,500);
 		};
 	}
 };

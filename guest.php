@@ -18,7 +18,7 @@ if ($_GET['action']=='write' && isset($_GET['id'])) {
 		$_clean=array();
 		$_clean['touser']=$_POST['touser'];
 		$_clean['fromuser']=$_COOKIE['username'];
-		$_clean['content']=_check_content($_POST['content']);
+		$_clean['content']=_check_guest($_POST['content'],4,100);
 		$_clean=_mysql_string($_clean);
 		//写入数据库
 		_query("INSERT INTO tg_guest (
