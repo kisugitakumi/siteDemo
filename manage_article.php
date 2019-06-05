@@ -36,7 +36,7 @@ if ($_GET['action']=='del' && isset($_GET['id'])) {
 }
 //分页模块
 global $_pagenum,$_pagesize;
-_page("SELECT tg_id FROM tg_article WHERE tg_reid=0;",5);
+_page("SELECT tg_id FROM tg_article WHERE tg_reid=0;",8);
 //从数据库提取数据获取结果集
 //每次从新取结果集，而不是从新执行SQL语句
 $_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_username FROM tg_article WHERE tg_reid=0 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize;");
