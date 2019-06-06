@@ -135,7 +135,7 @@ if (isset($_GET['id'])) {
 			}
 			//读取回帖
 			global $_pagenum,$_pagesize,$_page;
-			_page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}';",2);
+			_page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}';",6);
 			//从数据库提取数据获取结果集
 			//每次从新取结果集，而不是从新执行SQL语句
 			$_result=_query("SELECT tg_username,tg_type,tg_title,tg_content,tg_date FROM tg_article WHERE tg_reid='{$_html['reid']}' ORDER BY tg_date ASC LIMIT $_pagenum,$_pagesize");
@@ -176,7 +176,7 @@ if (isset($_GET['id'])) {
 	?>
 	<div id="subject">
 		<dl>
-			<dd class="user"><?php echo $_html['username_subject']?>(<?php echo $_html['sex']?>)[楼主]</dd>
+			<dd class="user"><a href="member_info.php?id=<?php echo $_html['userid']?>" name="info" class="info" target="_blank"><?php echo $_html['username_subject']?>(<?php echo $_html['sex']?>)[楼主]</a></dd>
 			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username_subject']?>"></dt>
 			<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['userid']?>">发消息</a></dd>
 			<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['userid']?>">加为好友</a></dd>
@@ -247,7 +247,7 @@ if (isset($_GET['id'])) {
 	<!-- 回帖界面 -->
 	<div class="re">
 		<dl>
-			<dd class="user"><?php echo $_html['username_html']?>(<?php echo $_html['sex']?>)</dd>
+			<dd class="user"><a href="member_info.php?id=<?php echo $_html['userid']?>" name="info" class="info" target="_blank"><?php echo $_html['username_html']?>(<?php echo $_html['sex']?>)</a></dd>
 			<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
 			<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['userid']?>">发消息</a></dd>
 			<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['userid']?>">加为好友</a></dd>

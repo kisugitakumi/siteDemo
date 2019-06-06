@@ -43,6 +43,17 @@
 	width: 85px;
 	float: left;
 }
+#article #subject dl dd a{
+	text-decoration: none;
+	color: #333;
+}
+#article #subject dl dd a.info{
+	color: #f60;
+	cursor: pointer;
+}
+#article #subject dl dd a.info:hover{
+	color: #f60;
+}
 #article #subject dl dd.email,#user dl dd.url{
 	width: 250px;
 	text-align: left;
@@ -300,6 +311,17 @@
 	text-align: center;
 	width: 85px;
 	float: left;
+}
+#article div.re dl dd a{
+	text-decoration: none;
+	color: #333;
+}
+#article div.re dl dd a.info{
+	color: #f60;
+	cursor: pointer;
+}
+#article div.re dl dd a.info:hover{
+	color: #f60;
 }
 #article div.re dl dd.email,#user dl dd.url{
 	width: 250px;

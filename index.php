@@ -6,8 +6,6 @@ define('IN_TG', true);
 define('SCRIPT', 'index');
 //引入公共文件,转换成硬路径，速度更快
 require dirname(__FILE__).'/includes/common.inc.php';
-//文章搜索
-
 //读取xml文件
 $_html=_html(_get_xml('new.xml'));
 //读取帖子列表
@@ -25,6 +23,7 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 ?>
 <script type="text/javascript" src="js/blog.js"></script>
 <script type="text/javascript" src="js/sidebar.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
 </head>
 <body>
 
@@ -34,7 +33,7 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 
 <div id="list">
 	<h2>文章列表</h2>
-	<form method="post" action="?action=search">
+	<form method="post">
 		<dl>
 			<dd>文章搜索：<input type="text" name="search"><input type="submit" value="搜索" class="submit"></dd>
 		</dl>

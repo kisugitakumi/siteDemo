@@ -28,6 +28,9 @@
 	margin-right: 8px;
 	cursor: pointer;
 }
+#list dl dd input.submit:hover{
+	color: blue;
+}
 #list ul.article{
 	padding: 10px 50px;
 }

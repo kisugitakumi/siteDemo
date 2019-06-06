@@ -1,0 +1,111 @@
+@charset 'utf-8';
+#search{
+	width: auto;
+	height: 600px;
+	border: 2px solid #ccc;
+	font-size: 12px;
+}
+#search h2{
+	text-indent: 0;
+	text-align: center;
+}
+#search h4{
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+#search dl{
+	font-size: 16px;
+	font-weight: bold;
+}
+#search dl dd{
+	float: right;
+}
+#search ul.article{
+	margin-top: 30px;
+	font-size: 15px;
+	line-height: 30px;
+	padding: 10px 50px;
+}
+#search ul.article li{
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px dashed #333;
+}
+#search ul.article li em{
+	float: right;
+	font-style: normal;
+}
+#search ul.article li a{
+	color: #333;
+}
+#search ul.article li a:hover{
+	color: #f60;
+}
+#search ul.article li{
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon1{
+	background: url(../../images/icon1.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon2{
+	background: url(../../images/icon2.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon3{
+	background: url(../../images/icon3.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon4{
+	background: url(../../images/icon4.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon5{
+	background: url(../../images/icon5.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon6{
+	background: url(../../images/icon6.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon7{
+	background: url(../../images/icon7.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon8{
+	background: url(../../images/icon8.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon9{
+	background: url(../../images/icon9.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon10{
+	background: url(../../images/icon10.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon11{
+	background: url(../../images/icon11.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon12{
+	background: url(../../images/icon12.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon13{
+	background: url(../../images/icon13.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon14{
+	background: url(../../images/icon14.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon15{
+	background: url(../../images/icon15.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
+#search ul.article li.icon16{
+	background: url(../../images/icon16.gif) no-repeat left center;
+	padding: 0 0 0 25px;
+}
