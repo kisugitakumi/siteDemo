@@ -1,7 +1,7 @@
 <?php 
 session_start();
 define('IN_TG', 'true');
-define('SCRIPT', 'photo_show');
+define('SCRIPT', 'member_photo');
 //引入公共文件commom.inc.php
 require dirname(__FILE__).'/includes/common.inc.php';
 //判断是否登录
@@ -50,7 +50,7 @@ if ($_GET['action']=='delete' && isset($_GET['id'])) {
 }
 $_percent=0.15;
 //分页模块
-global $_pagenum,$_pagesize,$_system,$_id;
+global $_pagenum,$_pagesize,$_system;
 _page("SELECT tg_id FROM tg_photo WHERE tg_username='{$_COOKIE['username']}';",$_system['photo']);
 $_result=_query("SELECT tg_id,tg_name,tg_url,tg_readcount,tg_commentcount,tg_username FROM tg_photo WHERE tg_username='{$_COOKIE['username']}' ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
 ?>

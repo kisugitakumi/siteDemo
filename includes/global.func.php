@@ -401,7 +401,7 @@ function _paging($_type){
 			echo '<li>首页 | </li>';
 			echo '<li>上一页 | </li>';
 		}else{
-			echo '<li><a href="'.SCRIPT.'.php">首页</a> | </li>';
+			echo '<li><a href="'.SCRIPT.'.php?'.$_id.'page='.(1).'">首页</a> | </li>';
 			echo '<li><a href="'.SCRIPT.'.php?'.$_id.'page='.($_page-1).'">上一页</a> | </li>';
 		}
 		if ($_page==$_pageabsolute) {

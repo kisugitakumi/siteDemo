@@ -1,17 +1,19 @@
 @charset 'utf-8';
 #login{
 	width: auto;
-	height: 400px;
+	height: 600px;
 	border: 2px solid #ccc;
 	font-size: 12px;
 }
 #login h2{
+	font-size: 20px;
 	text-indent: 0;
 	text-align: center;
 }
 #login dl{
+	font-size: 14px;
 	width: 400px;
-	margin: 0 auto;
+	margin: 80px auto;
 }
 #login dl dt{
 	text-align: center;

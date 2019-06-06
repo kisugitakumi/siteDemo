@@ -33,7 +33,7 @@ $_result=_query("SELECT tg_id,tg_username,tg_sex,tg_face FROM tg_user ORDER BY t
 			$_html=_html($_html);
 	?>
 	<dl>
-		<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
+		<dd class="user"><a href="member_info.php?id=<?php echo $_html['id']?>" name="info" class="info"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</a></dd>
 		<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
 		<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
 		<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['id']?>">加为好友</a></dd>

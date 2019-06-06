@@ -11,7 +11,22 @@
 	height: 33px;
 	background: url(../../images/article.jpg) no-repeat;
 	text-indent: -9999px;
-	margin: 10px 10px 0 auto;
+	margin: 30px 10px 0 auto;
+	clear: both;
+}
+#list dl{
+	font-size: 14px;
+	font-weight: bold;
+}
+#list dl dd{
+	float: right;
+}
+#list dl dd input.submit{
+	border: 1px dashed #333;
+	width: 50px;
+	margin-left: 8px;
+	margin-right: 8px;
+	cursor: pointer;
 }
 #list ul.article{
 	padding: 10px 50px;
@@ -125,6 +140,13 @@
 	text-align: center;
 	width: 85px;
 	float: left;
+}
+#user dl dd a.info{
+	color: #666;
+	cursor: pointer;
+}
+#user dl dd a.info:hover{
+	color: #f60;
 }
 #user dl dd.email,#user dl dd.url{
 	width: 250px;

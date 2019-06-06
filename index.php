@@ -6,6 +6,8 @@ define('IN_TG', true);
 define('SCRIPT', 'index');
 //引入公共文件,转换成硬路径，速度更快
 require dirname(__FILE__).'/includes/common.inc.php';
+//文章搜索
+
 //读取xml文件
 $_html=_html(_get_xml('new.xml'));
 //读取帖子列表
@@ -32,6 +34,11 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 
 <div id="list">
 	<h2>文章列表</h2>
+	<form method="post" action="?action=search">
+		<dl>
+			<dd>文章搜索：<input type="text" name="search"><input type="submit" value="搜索" class="submit"></dd>
+		</dl>
+	</form>
 	<a href="post.php" class="post">发表文章</a>
 	<ul class="article">
 		<?php 
@@ -55,7 +62,7 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 <div id="user">
 	<h2>新会员</h2>
 	<dl>
-		<dd class="user"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</dd>
+		<dd class="user"><a href="member_info.php?id=<?php echo $_html['id']?>" class="info"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</a></dd>
 		<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
 		<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
 		<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['id']?>">加为好友</a></dd>

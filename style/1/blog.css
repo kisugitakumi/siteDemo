@@ -33,6 +33,13 @@
 	text-decoration: none;
 	color: #333;
 }
+#blog dl dd a.info{
+	color: #666;
+	cursor: pointer;
+}
+#blog dl dd a.info:hover{
+	color: #f60;
+}
 #blog dl dd.user{
 	width: 150px;
 	float: none;
