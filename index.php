@@ -65,7 +65,7 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 		<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
 		<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
 		<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['id']?>">加为好友</a></dd>
-		<dd class="guest"><a href="javascript:;" name="guest" title="<?php echo $_html['id']?>">写留言</dd>
+		<dd class="guest"><a href="javascript:;" name="guest" title="<?php echo $_html['id']?>">写留言</a></dd>
 		<dd class="flower"><a href="javascript:;" name="flower" title="<?php echo $_html['id']?>">给他送花</a></dd>
 		<dd class="email">邮箱：<a href="mailto:<?php echo $_html['email']?>"><?php echo $_html['email']?></a></dd>
 		<dd class="url">网址：<a href="<?php echo $_html['url']?>" target="_blank"><?php echo $_html['url']?></a></dd>

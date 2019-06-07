@@ -56,7 +56,7 @@ $_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_readcount,t
 		<h2>博主发表文章</h2>
 		<form method="post" action="?action=delete">
 		<table cellspacing="1">
-			<tr><th>文章标题</th><th>文章内容</th><th>评论<th>阅读</th></th><th>发表时间</th></tr>
+			<tr><th>文章标题</th><th>文章内容</th><th>评论<th>阅读</th><th>发表时间</th></tr>
 			<?php
 				$_htmllist=array();
 				 while(!!$_rows=_fetch_array_list($_result)){
