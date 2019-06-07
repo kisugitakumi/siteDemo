@@ -2,8 +2,8 @@
 <?php
 /**
  * 删除非空目录
- * @param  [type] $dirName [description]
- * @return [type]          [description]
+ * @param  [string] $dirName [description]
+ * @return [string]          [description]
  */
 function _remove_Dir($dirName)
 {
@@ -46,10 +46,10 @@ function _is_forbid(){
 
 /**
  * 验证是否在规定的时间外发帖,防止恶意发帖
- * @param  [type] $_nowtime [description]
- * @param  [type] $_pretime [description]
- * @param  [type] $_second  [description]
- * @return [type]           [description]
+ * @param  [string] $_nowtime [description]
+ * @param  [string] $_pretime [description]
+ * @param  [string] $_second  [description]
+ * @return [string]           [description]
  */
 function _timed($_nowtime,$_pretime,$_second){
 	if ($_nowtime-$_pretime<$_second) {
@@ -73,17 +73,17 @@ function _runtime(){
  * @param $_info
  */
 function _alert_back($_info){
-	echo "<script type='text/javascript'>alert('".$_info."');history.back();</script>";
+	echo "<script string='text/javascript'>alert('".$_info."');history.back();</script>";
 	exit();
 }
 
 /**
  * js关闭窗口
- * @param  [type] $_info [description]
- * @return [type]        [description]
+ * @param  [string] $_info [description]
+ * @return [string]        [description]
  */
 function _alert_close($_info){
-	echo "<script type='text/javascript'>alert('".$_info."');window.close();</script>";
+	echo "<script string='text/javascript'>alert('".$_info."');window.close();</script>";
 	exit();
 }
 
@@ -91,13 +91,13 @@ function _alert_close($_info){
 
 /**
  * 注册后跳转至某个页面
- * @param  [type] $_info [description]
- * @param  [type] $_url  [description]
- * @return [type]        [description]
+ * @param  [string] $_info [description]
+ * @param  [string] $_url  [description]
+ * @return [string]        [description]
  */
 function _location($_info,$_url){
 	if (!empty($_info)) {
-		echo "<script type='text/javascript'>alert('".$_info."');location.href='$_url';</script>";
+		echo "<script string='text/javascript'>alert('".$_info."');location.href='$_url';</script>";
 		exit();
 	}else{
 		header('Location:'.$_url);
@@ -106,7 +106,7 @@ function _location($_info,$_url){
 
 /**
  * 生成随机标识符
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _sha1_uniqid(){
 	return _mysql_string(sha1(uniqid(rand(),true)));
@@ -115,9 +115,9 @@ function _sha1_uniqid(){
 
 /**
  * 验证码验证函数
- * @param  [type] $_first_code [description]
- * @param  [type] $_end_code   [description]
- * @return [type]              [description]
+ * @param  [string] $_first_code [description]
+ * @param  [string] $_end_code   [description]
+ * @return [string]              [description]
  */
 function _check_code($_first_code,$_end_code){
 	if ($_first_code!=$_end_code) {
@@ -137,7 +137,7 @@ function _code(){
 
 /**
  * 登录状态的判定，防止登录用户从url进入登录或注册界面
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _login_state(){
 	if (isset($_COOKIE['username'])) {
@@ -147,9 +147,9 @@ function _login_state(){
 
 /**
  * 判断唯一标识符是否异常
- * @param  [type] $_mysql_uniqid  [description]
- * @param  [type] $_cookie_uniqid [description]
- * @return [type]                 [description]
+ * @param  [string] $_mysql_uniqid  [description]
+ * @param  [string] $_cookie_uniqid [description]
+ * @return [string]                 [description]
  */
 function _uniqid($_mysql_uniqid,$_cookie_uniqid){
 	if ($_mysql_uniqid!=$_cookie_uniqid) {
@@ -159,9 +159,9 @@ function _uniqid($_mysql_uniqid,$_cookie_uniqid){
 
 /**
  * 生成图片缩略图
- * @param  [type] $_filename [description]
- * @param  [type] $_percent  [description]
- * @return [type]            [description]
+ * @param  [string] $_filename [description]
+ * @param  [string] $_percent  [description]
+ * @return [string]            [description]
  */
 function _thumb($_filename,$_percent){
 	//获取文件后缀
@@ -169,7 +169,7 @@ function _thumb($_filename,$_percent){
 	//生成png标头文件
 	//注意这里header()必须在任何实际输出之前调用！
 	ob_end_clean();
-	header('Content-type: image/png');
+	header('Content-string: image/png');
 	//获取文件信息，长和高
 	list($_width, $_height) = getimagesize($_filename);
 	//生成缩微的长和高
@@ -197,8 +197,8 @@ function _thumb($_filename,$_percent){
 
 /**
  * 读取xml文件的函数
- * @param  [type] $_xmlfile [description]
- * @return [type]           [description]
+ * @param  [string] $_xmlfile [description]
+ * @return [string]           [description]
  */
 function _get_xml($_xmlfile){
 	$_html=array();
@@ -229,8 +229,8 @@ function _get_xml($_xmlfile){
 
 /**
  * 用于生成xml文件
- * @param [type] $_xmlfile [description]
- * @param [type] $_clean   [description]
+ * @param [string] $_xmlfile [description]
+ * @param [string] $_clean   [description]
  */
 function _set_xml($_xmlfile,$_clean){
 	$_fp=@fopen('new.xml', 'w');
@@ -265,8 +265,8 @@ function _set_xml($_xmlfile,$_clean){
 
 /**
  * ubb解析函数
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _ubb($_string){
 	//将输入的回车键转换为换行符
@@ -289,8 +289,8 @@ function _ubb($_string){
 
 /**
  * 短信内容长度截取函数
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _title($_string,$_strlen){
 	if (mb_strlen($_string,'utf-8')>$_strlen) {
@@ -302,8 +302,8 @@ function _title($_string,$_strlen){
 
 /**
  * 防止非法字符，对其转义处理，如果是数组，也可过滤
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _html($_string){
 	if(is_array($_string)){
@@ -320,8 +320,8 @@ function _html($_string){
 
 /**
  * 判断是否需要开启转义，对字符串数组和字符串
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _mysql_string($_string){
 	//如果是开启状态，则不需要转义，否则需要转义
@@ -340,8 +340,8 @@ function _mysql_string($_string){
 
 /**
  * 设置分页参数
- * @param  [type] $_sql  获取总用户数
- * @param  [type] $_size 指定每页的用户数量
+ * @param  [string] $_sql  获取总用户数
+ * @param  [string] $_size 指定每页的用户数量
  */
 function _page($_sql,$_size){
 	//将里面的所有变量取出来，外部可以访问
@@ -374,13 +374,13 @@ function _page($_sql,$_size){
 
 /**
  * 分页函数
- * @param  [type] $_type [description]
- * @return [type]        [description]
+ * @param  [string] $_string [description]
+ * @return [string]        [description]
  */
-function _paging($_type){
+function _paging($_string){
 	//定义全局变量
 	global $_page,$_pageabsolute,$_num,$_id;
-	if ($_type==1) {
+	if ($_string==1) {
 		echo '<div id="page_num">';
 		echo '<ul>';
 		for ($i=0; $i < $_pageabsolute; $i++) {
@@ -392,7 +392,7 @@ function _paging($_type){
 		}
 		echo '</ul>';
 		echo '</div>';
-	}elseif($_type==2){
+	}elseif($_string==2){
 		echo '<div id="page_text">';
 		echo '<ul>';
 		echo '<li>'.$_page.'/'.$_pageabsolute.'页 | </li>';
@@ -420,7 +420,7 @@ function _paging($_type){
 
 /**
  * 关闭session
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _session_destroy(){
 	if(session_start()){
@@ -430,7 +430,7 @@ function _session_destroy(){
 
 /**
  * 删除cookies
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _unsetcookies(){
 	setcookie('username','',time()-1);

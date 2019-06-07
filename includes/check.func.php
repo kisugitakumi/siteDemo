@@ -13,10 +13,11 @@ if(!(function_exists('_mysql_string'))){
 
 /**
  * 判断标识符是否一致
- * @param  [type] $_first_uniqid [description]
- * @param  [type] $_end_uniqid   [description]
- * @return [type]                [description]
+ * @param  [string] $_first_uniqid [description]
+ * @param  [string] $_end_uniqid   [description]
+ * @return [string]                [description]
  */
+
 function _check_uniqid($_first_uniqid,$_end_uniqid){
 	if ((strlen($_first_uniqid)!=40) || ($_first_uniqid!=$_end_uniqid)) {
 		_alert_back('唯一标识符异常！');
@@ -83,9 +84,9 @@ function _check_password($_first_pass,$_end_pass,$_min_num){
 
 /**
  * 用于修改密码后的密码检查
- * @param  [type] $_string  [description]
- * @param  [type] $_min_num [description]
- * @return [type]           [description]
+ * @param  [string] $_string  [description]
+ * @param  [int] $_min_num [description]
+ * @return [string]           [description]
  */
 function _check_modify_password($_string,$_min_num){
 	//判断密码
@@ -140,8 +141,8 @@ function _check_answer($_ques,$_answ,$_min_num,$_max_num){
 
 /**
  * 性别
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _check_sex($_string){
 	return _mysql_string($_string);
@@ -149,8 +150,8 @@ function _check_sex($_string){
 
 /**
  * 头像
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _check_face($_string){
 	return _mysql_string($_string);
@@ -213,8 +214,8 @@ function _check_url($_string,$_max_num){
 
 /**
  * 短信内容长度检查
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _check_content($_string){
 	//长度小于10位或者大于200位 不予通过
@@ -227,10 +228,10 @@ function _check_content($_string){
 
 /**
  * 检查留言长度
- * @param  [type] $_string [description]
- * @param  [type] $_min    [description]
- * @param  [type] $_max    [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @param  [int] $_min    [description]
+ * @param  [int] $_max    [description]
+ * @return [string]          [description]
  */
 function _check_guest($_string,$_min,$_max){
 	//长度小于2位或者大于40位 不予通过
@@ -243,10 +244,10 @@ function _check_guest($_string,$_min,$_max){
 
 /**
  * 帖子标题长度检查
- * @param  [type] $_string [description]
- * @param  [type] $_min    [description]
- * @param  [type] $_max    [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @param  [int] $_min    [description]
+ * @param  [int] $_max    [description]
+ * @return [string]          [description]
  */
 function _check_post_title($_string,$_min,$_max){
 	//长度小于2位或者大于40位 不予通过
@@ -259,9 +260,9 @@ function _check_post_title($_string,$_min,$_max){
 
 /**
  * 帖子长度检查
- * @param  [type] $_string [description]
- * @param  [type] $_num    [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @param  [int] $_num    [description]
+ * @return [string]          [description]
  */
 function _check_post_content($_string,$_num){
 	if(mb_strlen($_string,'utf-8')<$_num){
@@ -273,9 +274,9 @@ function _check_post_content($_string,$_num){
 
 /**
  * 签名长度检查
- * @param  [type] $_string [description]
- * @param  [type] $_num    [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @param  [int] $_num    [description]
+ * @return [string]          [description]
  */
 function _check_autograph($_string,$_num){
 	if(mb_strlen($_string,'utf-8')>$_num){
@@ -287,10 +288,10 @@ function _check_autograph($_string,$_num){
 
 /**
  * 检查相册名和图片名长度
- * @param  [type] $_string [description]
- * @param  [type] $_min    [description]
- * @param  [type] $_max    [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @param  [int] $_min    [description]
+ * @param  [int] $_max    [description]
+ * @return [string]          [description]
  */
 function _check_dir_name($_string,$_min,$_max){
 	if(mb_strlen($_string,'utf-8')<$_min || mb_strlen($_string,'utf-8')>$_max){
@@ -303,9 +304,9 @@ function _check_dir_name($_string,$_min,$_max){
 
 /**
  * 检查相册密码
- * @param  [type] $_string  [description]
- * @param  [type] $_min_num [description]
- * @return [type]           [description]
+ * @param  [string] $_string  [description]
+ * @param  [int] $_min_num [description]
+ * @return [string]           [description]
  */
 function _check_dir_password($_string,$_min_num){
 	if(strlen($_string)<$_min_num){
@@ -316,8 +317,8 @@ function _check_dir_password($_string,$_min_num){
 
 /**
  * 检查图片url
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _check_photo_url($_string){
 	if (empty($_string)) {

@@ -36,8 +36,8 @@ function _set_names(){
 
 /**
  * 执行SQL语句
- * @param  [type] $_sql [description]
- * @return [type]       [description]
+ * @param  [string] $_sql [description]
+ * @return [string]       [description]
  */
 function _query($_sql){
 	if(!($_result=mysql_query($_sql))){
@@ -48,8 +48,8 @@ function _query($_sql){
 
 /**
  * 返回结果集的一条数据
- * @param  [type] $_sql [description]
- * @return [type]       [description]
+ * @param  [string] $_sql [description]
+ * @return [string]       [description]
  */
 function _fetch_array($_sql){
 	return mysql_fetch_array(_query($_sql),MYSQL_ASSOC);
@@ -57,8 +57,8 @@ function _fetch_array($_sql){
 
 /**
  * 返回指定数据集的所有数据
- * @param  [type] $_result [description]
- * @return [type]          [description]
+ * @param  [string] $_result [description]
+ * @return [string]          [description]
  */
 function _fetch_array_list($_result){
 	return mysql_fetch_array($_result,MYSQL_ASSOC);
@@ -66,7 +66,7 @@ function _fetch_array_list($_result){
 
 /**
  * 返回记录集的行数
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _num_rows($_result){
 	return mysql_num_rows($_result);
@@ -74,7 +74,7 @@ function _num_rows($_result){
 
 /**
  * 返回影响的记录数
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _affected_rows(){
 	return mysql_affected_rows();
@@ -82,8 +82,8 @@ function _affected_rows(){
 
 /**
  * 销毁记录集
- * @param  [type] $_rsult [description]
- * @return [type]         [description]
+ * @param  [string] $_rsult [description]
+ * @return [string]         [description]
  */
 function _free_result($_result){
 	mysql_free_result($_result);
@@ -91,7 +91,7 @@ function _free_result($_result){
 
 /**
  * 返回新增的ID
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _insert_id(){
 	return mysql_insert_id();
@@ -99,8 +99,8 @@ function _insert_id(){
 
 /**
  * 是否存在数据
- * @param  [type]  $_sql  [description]
- * @param  [type]  $_info [description]
+ * @param  [string]  $_sql  [description]
+ * @param  [string]  $_info [description]
  * @return boolean        [description]
  */
 function _is_repeat($_sql,$_info){
@@ -111,7 +111,7 @@ function _is_repeat($_sql,$_info){
 
 /**
  * 关闭数据库
- * @return [type] [description]
+ * @return [string] [description]
  */
 function _close(){
 	mysql_close();

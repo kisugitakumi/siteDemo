@@ -13,9 +13,9 @@ if(!(function_exists('_mysql_string'))){
 
 /**
  * 生成登录cookies
- * @param  [type] $_username [description]
- * @param  [type] $_uniqid   [description]
- * @return [type]            [description]
+ * @param  [string] $_username [description]
+ * @param  [string] $_uniqid   [description]
+ * @return [string]            [description]
  */
 function _setcookies($_username,$_uniqid,$_time){
 	switch ($_time) {
@@ -80,8 +80,8 @@ function _check_password($_string,$_min_num){
 
 /**
  * 验证时间
- * @param  [type] $_string [description]
- * @return [type]          [description]
+ * @param  [string] $_string [description]
+ * @return [string]          [description]
  */
 function _check_time($_string){
 	$_time=array('0','1','2','3');
