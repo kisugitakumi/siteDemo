@@ -3,10 +3,22 @@
 if(!defined('IN_TG')){
 	exit('Access Denied!');	
 }
+if(isset($_COOKIE['username'])){
+	echo '
+	<embed src="test.mp3" autostart="true" loop="true" hidden="true">';
+}
 ?>
 <script type="text/javascript" src="js/skin.js"></script>
 <div id="header">
 	<h1><p>多用户博客系统</p></h1>
+	<?php
+			if(isset($_COOKIE['username'])){
+				echo '
+				<img src="music\1.png" alt="Base64 encoded image" width="20" height="20" style="float:left"/>';
+			}else {
+				echo '<img src="music\2.png" alt="Base64 encoded image" width="20" height="20" style="float:left"/>';
+			}
+		?>
 	<ul>
 		<li><a href="index.php">首页</a></li>
 		

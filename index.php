@@ -20,10 +20,8 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 <head>
 <?php
 	require ROOT_PATH.'includes/title.inc.php';
-?>
-<script type="text/javascript" src="js/blog.js"></script>
-<script type="text/javascript" src="js/sidebar.js"></script>
-<script type="text/javascript" src="js/search.js"></script>
+?>	
+<script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 

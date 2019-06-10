@@ -27,6 +27,15 @@ window.onload=function(){
 			centerWindow('guest.php?id='+this.title,'guest',340,500);
 		}
 	};
+	var fm=document.getElementsByTagName('form')[0];
+	fm.onsubmit=function(){
+		if (fm.search.value=='') {
+			alert('请输入搜索信息！');
+		}else{
+			//打开新页面并传参
+			window.open('user_search.php?id='+fm.search.value);
+		}
+	}
 };
 
 //使信息框出现在屏幕的中间位置

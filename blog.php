@@ -23,6 +23,9 @@ $_result=_query("SELECT tg_id,tg_username,tg_sex,tg_face FROM tg_user ORDER BY t
 
 <div id="blog">
 	<h2>博友列表</h2>
+	<form method="post">
+		<h3>用户查找：<input type="text" name="search"><input type="submit" value="查找" class="submit"></h3>
+	</form>
 	<?php 
 		$_html=array();
 		while(!!$_rows=_fetch_array_list($_result)){
