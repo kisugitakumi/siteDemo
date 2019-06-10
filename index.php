@@ -61,7 +61,7 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 <div id="user">
 	<h2>新会员</h2>
 	<dl>
-		<dd class="user"><a href="member_info.php?id=<?php echo $_html['id']?>" class="info"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</a></dd>
+		<dd class="user"><a href="member_info.php?id=<?php echo $_html['id']?>" target="_blank" class="info"><?php echo $_html['username']?>(<?php echo $_html['sex']?>)</a></dd>
 		<dt><img src="<?php echo $_html['face']?>" alt="<?php echo $_html['username']?>"></dt>
 		<dd class="message"><a href="javascript:;" name="message" title="<?php echo $_html['id']?>">发消息</a></dd>
 		<dd class="friend"><a href="javascript:;" name="friend" title="<?php echo $_html['id']?>">加为好友</a></dd>
@@ -86,14 +86,17 @@ $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_p
 			$_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount,tg_nice,tg_hot,tg_username FROM tg_article WHERE tg_hot=1 OR tg_nice=1 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
 			$_htmllist=array();
 			while(!!$_rows=_fetch_array_list($_result)){
-				$_htmllist['id']=$_rows['tg_id'];
+				$_htmllist['id']=$_rows['tg_id'];//文章ID
 				$_htmllist['username']=$_rows['tg_username'];
+				//获取用户ID
+				$_result1=_query("SELECT tg_id FROM tg_user WHERE tg_username='{$_htmllist['username']}' LIMIT 1");
+				$_rows1=_fetch_array_list($_result1);
 				$_htmllist['type']=$_rows['tg_type'];
 				$_htmllist['readcount']=$_rows['tg_readcount'];
 				$_htmllist['commentcount']=$_rows['tg_commentcount'];
 				$_htmllist['title']=$_rows['tg_title'];
 				$_htmllist=_html($_htmllist);
-				echo '<li class="icon'.$_htmllist['type'].'"><em>文章作者：'.$_htmllist['username'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阅读数(<strong>'.$_htmllist['readcount'].'</strong>)评论数(<strong>'.$_htmllist['commentcount'].'</strong>)</em><a href="article.php?id='.$_htmllist['id'].'">'._title($_htmllist['title']=$_rows['tg_title'],40).'</a></li>';
+				echo '<li class="icon'.$_htmllist['type'].'"><em>文章作者：<a href="member_info.php?id='.$_rows1['tg_id'].'" target="_blank">'.$_htmllist['username'].'</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阅读数(<strong>'.$_htmllist['readcount'].'</strong>)评论数(<strong>'.$_htmllist['commentcount'].'</strong>)</em><a href="article.php?id='.$_htmllist['id'].'">'._title($_htmllist['title']=$_rows['tg_title'],40).'</a></li>';
 			}
 			_free_result($_result);
 		?>

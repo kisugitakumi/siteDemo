@@ -208,6 +208,9 @@
 	float: right;
 	font-style: normal;
 }
+#hot ul.article li em a{
+	text-decoration: none;
+}
 #hot ul.article li a{
 	color: #333;
 }
