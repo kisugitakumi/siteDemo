@@ -4,8 +4,8 @@ if(!defined('IN_TG')){
 	exit('Access Denied!');	
 }
 if(isset($_COOKIE['username'])){
-	echo '
-	<embed src="test.mp3" autostart="true" loop="true" hidden="true">';
+// 	echo '
+// 	<embed src="test.mp3" autostart="true" loop="true" hidden="true">';
 }
 ?>
 <script type="text/javascript" src="js/skin.js"></script>

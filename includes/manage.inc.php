@@ -19,5 +19,7 @@ if(!defined('IN_TG')){//防止恶意调用
 	<dl>
 		<dt>文章管理</dt>
 		<dd><a href="manage_article.php">文章查阅</a></dd>
+		<dd><a href="manage_article_check.php">文章审核</a></dd>
+		<dd><a href="manage_rearticle_check.php">回复审核</a></dd>
 	</dl>
 </div>

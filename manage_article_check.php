@@ -10,24 +10,46 @@ _manage_login();
 if (!isset($_COOKIE['username'])) {
 	_alert_back('请登录！');
 }
-//删除文章
-if ($_GET['action']=='del' && isset($_GET['id'])) {
+//驳回文章
+if ($_GET['action']=='nopass' && isset($_GET['id'])) {
 	if (!!$_rows=_fetch_array("SELECT tg_id FROM tg_article WHERE tg_id='{$_GET['id']}' LIMIT 1;")) {
-		//危险操作先验证用户唯一标识符
+		//先验证用户唯一标识符
 		if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
 			_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
-			//先删除回复这篇文章的评论
-			_query("DELETE FROM tg_article WHERE tg_reid='{$_GET['id']}';");
-			//再删除这篇文章
-			_query("DELETE FROM tg_article WHERE tg_id='{$_GET['id']}';");
+			//通过文章
+			_query("UPDATE tg_article SET tg_state=2 WHERE tg_id='{$_GET['id']}'");
 			if (_affected_rows()>=1) {
 				//关闭连接
 				_close();
-				//成功删除则跳转
-				_location('删除成功!','member_article.php');
+				//成功则跳转
+				_location('驳回成功!','manage_article_check.php');
 			}else{
 				_close();
-				_alert_back('删除失败!');
+				_alert_back('驳回失败!');
+			}
+		}else{
+			_alert_back('唯一标识符异常');
+		}
+	}else{
+		_alert_back('不存在此文章');
+	}
+}
+//通过文章
+if ($_GET['action']=='pass' && isset($_GET['id'])) {
+	if (!!$_rows=_fetch_array("SELECT tg_id FROM tg_article WHERE tg_id='{$_GET['id']}' LIMIT 1;")) {
+		//先验证用户唯一标识符
+		if (!!$_rows=_fetch_array("SELECT tg_uniqid FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
+			_uniqid($_rows['tg_uniqid'],$_COOKIE['uniqid']);
+			//通过文章
+			_query("UPDATE tg_article SET tg_state=1 WHERE tg_id='{$_GET['id']}'");
+			if (_affected_rows()>=1) {
+				//关闭连接
+				_close();
+				//成功则跳转
+				_location('通过成功!','manage_article_check.php');
+			}else{
+				_close();
+				_alert_back('通过失败!');
 			}
 		}else{
 			_alert_back('唯一标识符异常');
@@ -38,10 +60,10 @@ if ($_GET['action']=='del' && isset($_GET['id'])) {
 }
 //分页模块
 global $_pagenum,$_pagesize;
-_page("SELECT tg_id FROM tg_article WHERE tg_reid=0 AND tg_state=1;",8);
+_page("SELECT tg_id FROM tg_article WHERE tg_reid=0 AND tg_state=0;",8);
 //从数据库提取数据获取结果集
 //每次从新取结果集，而不是从新执行SQL语句
-$_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_username FROM tg_article WHERE tg_reid=0 AND tg_state=1 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize;");
+$_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_username FROM tg_article WHERE tg_reid=0 AND tg_state=0 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize;");
 ?>
 <!DOCTYPE html>
 <html>
@@ -69,7 +91,7 @@ $_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_username FR
 					$_html['username']=$_rows['tg_username'];
 					$_html=_html($_html);
 			?>
-			<tr><td><a href="article.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['title']?>"><?php echo _title($_html['title'],8)?></a></td><td><a href="article.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['content']?>"><?php echo _title($_html['content'],14)?></a></td><td><?php echo $_html['username']?></td><td><?php echo $_html['date']?></td><td>[<a href="member_article.php?action=del&id=<?php echo $_html['id']?>">删</a>] [<a href="article.php?id=<?php echo $_html['id']?>">改</a>]</td></tr>
+			<tr><td><a href="manage_article_check_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['title']?>"><?php echo _title($_html['title'],8)?></a></td><td><a href="manage_article_check_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['content']?>"><?php echo _title($_html['content'],14)?></a></td><td><?php echo $_html['username']?></td><td><?php echo $_html['date']?></td><td>[<a href="manage_article_check.php?action=nopass&id=<?php echo $_html['id']?>">驳回</a>][<a href="manage_article_check.php?action=pass&id=<?php echo $_html['id']?>">通过</a>]</td></tr>
 			<?php 
 				}
 				_free_result($_result);

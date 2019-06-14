@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 	global $_pagenum,$_pagesize,$_system,$_id;
 	$_id='id='.$_GET['id'].'&';
 	_page("SELECT tg_id FROM tg_article WHERE (tg_title LIKE CONCAT('%','{$_GET['id']}','%') OR tg_content LIKE CONCAT('%','{$_GET['id']}','%')) AND tg_reid=0;",$_system['article']);
-	$_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM tg_article WHERE (tg_title LIKE CONCAT('%','{$_GET['id']}','%') OR tg_content LIKE CONCAT('%','{$_GET['id']}','%')) AND tg_reid=0 ORDER BY tg_readcount DESC,tg_commentcount DESC LIMIT $_pagenum,$_pagesize");
+	$_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount FROM tg_article WHERE (tg_title LIKE CONCAT('%','{$_GET['id']}','%') OR tg_content LIKE CONCAT('%','{$_GET['id']}','%')) AND tg_reid=0 AND tg_state=1 ORDER BY tg_readcount DESC,tg_commentcount DESC LIMIT $_pagenum,$_pagesize");
 }else{
 	_alert_back('没有输入搜索内容！');
 }

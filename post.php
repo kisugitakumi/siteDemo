@@ -57,7 +57,7 @@ if ($_GET['action']=='post') {
 			_close();
 			//_session_destroy();
 			//成功发表则跳转
-			_location('发表成功！','article.php?id='.$_clean['id']);
+			_location('发表成功！请等待管理员审核后查看！','index.php');
 		}else{
 			_close();
 			//_session_destroy();

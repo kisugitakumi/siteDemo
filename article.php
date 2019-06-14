@@ -62,12 +62,10 @@ if ($_GET['action']=='rearticle') {
 			//setcookie('article_time',time());
 			$_clean['time']=time();
 			_query("UPDATE tg_user SET tg_article_time='{$_clean['time']}' WHERE tg_username ='{$_COOKIE['username']}';");
-			//每增加一条回帖，回复数就加一
-			_query("UPDATE tg_article SET tg_commentcount=tg_commentcount+1 WHERE tg_reid=0 AND tg_id='{$_clean['reid']}';");
 			//关闭连接和session
 			_close();
 			//成功注册则跳转
-			_location('回帖成功！','article.php?id='.$_clean['reid']);
+			_location('回帖成功！请等待管理员审核后查看！','article.php?id='.$_clean['reid']);
 		}else{
 			_close();
 			//_session_destroy();
@@ -80,7 +78,7 @@ if ($_GET['action']=='rearticle') {
 //读出数据
 if (isset($_GET['id'])) {
 	//提取出数据库中的帖子ID
-	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date,tg_last_modify_date,tg_nice,tg_hot FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}';")){
+	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date,tg_last_modify_date,tg_nice,tg_hot FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}' AND tg_state=1;")){
 		//累积阅读量
 		_query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}';");
 		$_html=array();
@@ -135,10 +133,10 @@ if (isset($_GET['id'])) {
 			}
 			//读取回帖
 			global $_pagenum,$_pagesize,$_page;
-			_page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}';",6);
+			_page("SELECT tg_id FROM tg_article WHERE tg_reid='{$_html['reid']}' AND tg_state=1;",6);
 			//从数据库提取数据获取结果集
 			//每次从新取结果集，而不是从新执行SQL语句
-			$_result=_query("SELECT tg_username,tg_type,tg_title,tg_content,tg_date FROM tg_article WHERE tg_reid='{$_html['reid']}' ORDER BY tg_date ASC LIMIT $_pagenum,$_pagesize");
+			$_result=_query("SELECT tg_username,tg_type,tg_title,tg_content,tg_date FROM tg_article WHERE tg_reid='{$_html['reid']}' AND tg_state=1 ORDER BY tg_date ASC LIMIT $_pagenum,$_pagesize");
 
 		}
 	}else{
