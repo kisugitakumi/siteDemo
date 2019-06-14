@@ -45,7 +45,7 @@ $_result=_query("SELECT tg_id,tg_reid,tg_state,tg_title,tg_content,tg_date,tg_re
 <html>
 <head>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
-<script type="text/javascript" src="js/member_message.js"></script>
+<script type="text/javascript" src="js/confirm.js"></script>
 </head>
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
@@ -79,7 +79,7 @@ $_result=_query("SELECT tg_id,tg_reid,tg_state,tg_title,tg_content,tg_date,tg_re
 						$_html['state_html']='<span style="color:green;">审核通过</span>';
 						$_html['title_html']='<a href="article.php?id='.$_html['id'].'" title="'.$_html['title'].'">'._title($_html['title'],8).'</a>';
 						$_html['content_html']='<a href="article.php?id='.$_html['id'].'" title="'.$_html['content'].'">'._title($_html['content'],14).'</a>';
-						$_html['do_html']='[<a href="member_article.php?action=del&id='.$_html['id'].'">删</a>] [<a href="article.php?id='.$_html['id'].'">改</a>]';
+						$_html['do_html']='[<a onclick="return check_del();" href="member_article.php?action=del&id='.$_html['id'].'">删</a>] [<a href="article.php?id='.$_html['id'].'">改</a>]';
 						$_html['commentcount_html']=$_html['commentcount'];
 						$_html['readcount_html']=$_html['readcount'];
 					}elseif($_html['state']==2){

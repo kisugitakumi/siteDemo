@@ -70,6 +70,7 @@ $_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_username FR
 <head>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 <script type="text/javascript" src="js/member_message.js"></script>
+<script type="text/javascript" src="js/confirm.js"></script>
 </head>
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
@@ -91,7 +92,7 @@ $_result=_query("SELECT tg_id,tg_reid,tg_title,tg_content,tg_date,tg_username FR
 					$_html['username']=$_rows['tg_username'];
 					$_html=_html($_html);
 			?>
-			<tr><td><a href="manage_article_check_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['title']?>"><?php echo _title($_html['title'],8)?></a></td><td><a href="manage_article_check_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['content']?>"><?php echo _title($_html['content'],14)?></a></td><td><?php echo $_html['username']?></td><td><?php echo $_html['date']?></td><td>[<a href="manage_article_check.php?action=nopass&id=<?php echo $_html['id']?>">驳回</a>][<a href="manage_article_check.php?action=pass&id=<?php echo $_html['id']?>">通过</a>]</td></tr>
+			<tr><td><a href="manage_article_check_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['title']?>"><?php echo _title($_html['title'],8)?></a></td><td><a href="manage_article_check_detail.php?id=<?php echo $_html['id']?>" title="<?php echo $_html['content']?>"><?php echo _title($_html['content'],14)?></a></td><td><?php echo $_html['username']?></td><td><?php echo $_html['date']?></td><td>[<a onclick="return check_ret();" href="manage_article_check.php?action=nopass&id=<?php echo $_html['id']?>">驳回</a>][<a href="manage_article_check.php?action=pass&id=<?php echo $_html['id']?>">通过</a>]</td></tr>
 			<?php 
 				}
 				_free_result($_result);

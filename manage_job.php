@@ -57,6 +57,7 @@ $_result=_query("SELECT tg_id,tg_username,tg_reg_time,tg_email FROM tg_user WHER
 <head>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 <script type="text/javascript" src="js/member_message.js"></script>
+<script type="text/javascript" src="js/confirm.js"></script>
 </head>
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
@@ -75,7 +76,7 @@ $_result=_query("SELECT tg_id,tg_username,tg_reg_time,tg_email FROM tg_user WHER
 				$_html['reg_time']=$_rows['tg_reg_time'];
 				$_html=_html($_html);
 				if ($_COOKIE['username']==$_html['username']) {
-					$_html['job_html']='<a href="manage_job.php?action=job&id='.$_html['id'].'">辞职</a>';
+					$_html['job_html']='<a onclick="return check_quit();" href="manage_job.php?action=job&id='.$_html['id'].'">辞职</a>';
 				}else{
 					$_html['job_html']='没有此权限';
 				}

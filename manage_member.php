@@ -96,6 +96,7 @@ $_result=_query("SELECT tg_id,tg_username,tg_reg_time,tg_email,tg_state,tg_level
 <head>
 <?php require ROOT_PATH.'includes/title.inc.php';?>
 <script type="text/javascript" src="js/member_message.js"></script>
+<script type="text/javascript" src="js/confirm.js"></script>
 </head>
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
@@ -119,9 +120,9 @@ $_result=_query("SELECT tg_id,tg_username,tg_reg_time,tg_email,tg_state,tg_level
 				if ($_COOKIE['username']==$_html['username']) {//是自己则不能操作
 					$_html['manage_member_html']='无权限操作';
 				}elseif(!empty($_html['state']) && $_html['level']==0){
-					$_html['manage_member_html']='[<a href="manage_member.php?action=del&id='.$_html['id'].'&username='.$_html['username'].'">删除</a>][<a href="manage_member.php?action=forbid&id='.$_html['id'].'">禁言</a>]';
+					$_html['manage_member_html']='[<a onclick="return check_del();" href="manage_member.php?action=del&id='.$_html['id'].'&username='.$_html['username'].'">删除</a>][<a href="manage_member.php?action=forbid&id='.$_html['id'].'">禁言</a>]';
 				}elseif(empty($_html['state']) && $_html['level']==0){
-					$_html['manage_member_html']='[<a href="manage_member.php?action=del&id='.$_html['id'].'&username='.$_html['username'].'">删除</a>][<a href="manage_member.php?action=unlock&id='.$_html['id'].'">解禁</a>]';
+					$_html['manage_member_html']='[<a onclick="return check_del();" href="manage_member.php?action=del&id='.$_html['id'].'&username='.$_html['username'].'">删除</a>][<a href="manage_member.php?action=unlock&id='.$_html['id'].'">解禁</a>]';
 				}elseif($_html['level']==1){//对方为管理员，不能操作
 					$_html['manage_member_html']='无权限操作';
 				}

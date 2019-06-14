@@ -10,7 +10,7 @@ require dirname(__FILE__).'/includes/common.inc.php';
 $_html=_html(_get_xml('new.xml'));
 //读取帖子列表
 global $_pagenum,$_pagesize,$_system;
-_page("SELECT tg_id FROM tg_article WHERE tg_reid=0;",$_system['article']);
+_page("SELECT tg_id FROM tg_article WHERE tg_reid=0 AND tg_state=1;",$_system['article']);
 $_result=_query("SELECT tg_id,tg_title,tg_type,tg_readcount,tg_commentcount,tg_nice FROM tg_article WHERE tg_reid=0 AND tg_state=1 ORDER BY tg_date DESC LIMIT $_pagenum,$_pagesize");
 //取得最新图片：找到时间最后的图片，并且是公开的，注意这个sql语句使用了嵌套
 $_photo=_fetch_array("SELECT tg_id AS id,tg_name AS name,tg_url AS url FROM tg_photo WHERE tg_sid IN (SELECT tg_id FROM tg_dir WHERE tg_type=0) ORDER BY tg_date DESC LIMIT 1;");

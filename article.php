@@ -4,6 +4,7 @@ define('IN_TG', 'true');
 define('SCRIPT', 'article');
 //引入公共文件commom.inc.php
 require dirname(__FILE__).'/includes/common.inc.php';
+
 //处理精华帖
 if ($_GET['action']=='nice' && isset($_GET['id']) && isset($_GET['on'])) {
 	if (!!$_rows=_fetch_array("SELECT tg_uniqid,tg_article_time FROM tg_user WHERE tg_username='{$_COOKIE['username']}' LIMIT 1")) {
@@ -77,8 +78,32 @@ if ($_GET['action']=='rearticle') {
 }
 //读出数据
 if (isset($_GET['id'])) {
+	//增加浏览历史
+	if (isset($_COOKIE['username'])) {
+		_query("INSERT INTO tg_history(
+									tg_username,
+									tg_article_id,
+									tg_date
+									)
+									VAlUES(
+									'{$_COOKIE['username']}',
+									'{$_GET['id']}',
+									NOW()
+									)");
+	}else{//游客
+		_query("INSERT INTO tg_history(
+									tg_username,
+									tg_article_id,
+									tg_date
+									)
+									VAlUES(
+									'游客',
+									'{$_GET['id']}',
+									NOW()
+									)");
+	}
 	//提取出数据库中的帖子ID
-	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date,tg_last_modify_date,tg_nice,tg_hot FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}' AND tg_state=1;")){
+	if(!!$_rows=_fetch_array("SELECT tg_id,tg_username,tg_type,tg_content,tg_title,tg_readcount,tg_commentcount,tg_date,tg_last_view,tg_last_modify_date,tg_nice,tg_hot FROM tg_article WHERE tg_reid=0 AND tg_id='{$_GET['id']}' AND tg_state=1;")){
 		//累积阅读量
 		_query("UPDATE tg_article SET tg_readcount=tg_readcount+1 WHERE tg_id='{$_GET['id']}';");
 		$_html=array();
@@ -91,8 +116,15 @@ if (isset($_GET['id'])) {
 		$_html['commemtcount']=$_rows['tg_commentcount'];
 		$_html['nice']=$_rows['tg_nice'];
 		$_html['hot']=$_rows['tg_hot'];
+		$_html['last_view']=$_rows['tg_last_view'];
 		$_html['date']=$_rows['tg_date'];
 		$_html['last_modify_date']=$_rows['tg_last_modify_date'];
+		//获取最后的浏览者，并修改最后的浏览者
+		if (isset($_COOKIE['username'])) {
+			_query("UPDATE tg_article SET tg_last_view='{$_COOKIE['username']}' WHERE tg_id='{$_GET['id']}'");
+		}else{
+			_query("UPDATE tg_article SET tg_last_view='游客' WHERE tg_id='{$_GET['id']}'");
+		}
 		//判断是否热门
 		if ($_html['readcount']>=200 && $_html['commemtcount']>=10 && empty($_html['hot'])) {
 			_query("UPDATE tg_article SET tg_hot=1 WHERE tg_id='{$_GET['id']}';");
@@ -127,6 +159,10 @@ if (isset($_GET['id'])) {
 				$_html['re']='<span>[<a href="#ree" name="re" title="回复1楼的'.$_html['username_subject'].'">回复</a>]</span>';
 			}
 
+			//查阅浏览历史
+			if ($_COOKIE['username']) {
+				$_html['history']='<span>[<a href="article_view_history.php?id='.$_html['reid'].'" target="_blank">浏览历史</a>]</span>';
+			}
 			//个性签名
 			if ($_html['switch']==1) {
 				$_html['autograph_html']='<p class="autograph">'.$_html['autograph'].'</p>';
@@ -189,8 +225,9 @@ if (isset($_GET['id'])) {
 					<?php if(empty($_html['nice'])){?>[<a href="article.php?action=nice&on=1&id=<?php echo $_html['reid']?>">设置精华帖</a>]<?php }else{?>
 					[<a href="article.php?action=nice&on=0&id=<?php echo $_html['reid']?>">取消精华帖</a>]
 				<?php }?><?php }?><?php echo $_html['username_modify']?> 1#</span><?php echo $_html['username_subject']?> | 发表于<?php echo $_html['date']?>
+				最后浏览者：<?php echo $_html['last_view']?>
 			</div>
-			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"><?php echo $_html['re']?></h3>
+			<h3>主题：<?php echo $_html['title']?> <img src="images/icon<?php echo $_html['type']?>.gif" alt="icon"><?php echo $_html['re']?><?php echo $_html['history']?></h3>
 			<div class="detail">
 				<?php echo _ubb($_html['content']);?>
 				<?php echo _ubb($_html['autograph_html']);?>
