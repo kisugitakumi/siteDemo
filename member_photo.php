@@ -58,6 +58,7 @@ $_result=_query("SELECT tg_id,tg_name,tg_url,tg_readcount,tg_commentcount,tg_use
 <html>
 <head>
 <?php require ROOT_PATH.'includes/title.inc.php'; ?>
+<script type="text/javascript" src="js/confirm.js"></script>
 </head>
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
@@ -83,7 +84,7 @@ $_result=_query("SELECT tg_id,tg_name,tg_url,tg_readcount,tg_commentcount,tg_use
 		<?php
 			if ($_html['username']==$_COOKIE['username']) {
 		?>
-		<dd>[<a href="member_photo.php?action=delete&id=<?php echo $_html['id']?>">删除</a>]</dd>
+		<dd>[<a onclick="return check_del();" href="member_photo.php?action=delete&id=<?php echo $_html['id']?>">删除</a>]</dd>
 		<?php }?>
 	</dl>
 	<?php }

@@ -46,6 +46,30 @@ if ($_GET['action']=='delete' && isset($_GET['id'])) {
 }
 //取值
 if (isset($_GET['id'])) {
+	//增加浏览历史
+	if (isset($_COOKIE['username'])) {
+		_query("INSERT INTO tg_photo_history(
+									tg_username,
+									tg_dir_id,
+									tg_date
+									)
+									VAlUES(
+									'{$_COOKIE['username']}',
+									'{$_GET['id']}',
+									NOW()
+									)");
+	}else{//游客
+		_query("INSERT INTO tg_photo_history(
+									tg_username,
+									tg_dir_id,
+									tg_date
+									)
+									VAlUES(
+									'游客',
+									'{$_GET['id']}',
+									NOW()
+									)");
+	}
 	if(!!$_rows=_fetch_array("SELECT tg_id,tg_name,tg_type FROM tg_dir WHERE tg_id='{$_GET['id']}' LIMIT 1;")){
 		$_dirhtml=array();
 		$_dirhtml['id']=$_rows['tg_id'];

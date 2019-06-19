@@ -48,6 +48,7 @@ $_result=_query("SELECT tg_id,tg_name,tg_type,tg_face FROM tg_dir ORDER BY tg_da
 <html>
 <head>
 <?php require ROOT_PATH.'includes/title.inc.php'; ?>
+<script type="text/javascript" src="js/confirm.js"></script>
 </head>
 <body>
 <?php require ROOT_PATH.'includes/header.inc.php'; ?>
@@ -79,7 +80,7 @@ $_result=_query("SELECT tg_id,tg_name,tg_type,tg_face FROM tg_dir ORDER BY tg_da
 		<dt><a href="photo_show?id=<?php echo $_html['id']?>"><?php echo $_html['face_html']?></a></dt>
 		<dd><a href="photo_show.php?id=<?php echo $_html['id']?>"><?php echo $_html['name']?>(共<?php echo $_html['photo']['count']?>张图片)<?php echo $_html['type_html']?></a></dd>
 		<?php if(isset($_SESSION['admin']) && isset($_COOKIE['username'])){?>
-		<dd>[<a href="photo_modify_dir.php?id=<?php echo $_html['id']?>">修改</a>] [<a href="photo.php?action=delete&id=<?php echo $_html['id']?>">删除</a>]</dd>
+		<dd>[<a href="photo_modify_dir.php?id=<?php echo $_html['id']?>">修改</a>] [<a onclick="return check_del();" href="photo.php?action=delete&id=<?php echo $_html['id']?>">删除</a>][<a href="photo_view_history.php?id=<?php echo $_html['id']?>">浏览历史</a>]</dd>
 		<?php }?>
 	</dl>
 	<?php }?>
